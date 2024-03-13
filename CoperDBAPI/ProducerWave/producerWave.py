@@ -157,7 +157,7 @@ while True:
 
     # Get the current time
     curr_time = datetime.now()
-    curr_time = datetime.now() - timedelta(days=2)
+    curr_time = datetime.now()
     delta_3h = curr_time - timedelta(hours=3)
     delta_3h = delta_3h + timedelta(seconds=1)
 
