@@ -33,6 +33,7 @@ mycol_living = db['living_lab']
 mycol_dynamic = db["ais_cyprus_dynamic"]
 mycol_static = db["ais_cyprus_static"]
 mycol_weather = db["weatherData"]
+collection = db['athens_ais']
 
 @app.route('/lab', methods=['POST'])
 def add_data():
@@ -340,6 +341,19 @@ def data_info():
             unique_mmsi_ship_types[mmsi] = ship_type["ship_type"] if ship_type else None
 
         logging.info(f'Unique MMSI values with ship types:: {unique_mmsi_ship_types}')
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+@app.route('/athens', methods=['GET'])
+def get_athens_data():
+    try:
+        # Ανακτήστε τα τελευταία 10 έγγραφα από το collection
+        last_10_documents = collection.find().sort([('_id', -1)]).limit(10)
+
+        data_list = list(last_10_documents)
+        logging.info(f'data_list: {data_list}')
+        json_data = json.loads(json_util.dumps(data_list))
+        return jsonify(json_data)
     except Exception as e:
         return jsonify({'error': str(e)})
         
