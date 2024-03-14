@@ -22,6 +22,7 @@ myclient = pymongo.MongoClient("mongodb://mongodb:27017")
 db = myclient["kafka_db"]
 mycol_dynamic = db["ais_cyprus_dynamic"]
 mycol_static = db["ais_cyprus_static"]
+athens_ais = db['athens_ais']
 
 kafka_client = KafkaClient(hosts='kafka1:29092')
 kafka_producer_dynamic = kafka_client.topics[b'ais_cyprus_dynamic'].get_producer()
@@ -29,6 +30,11 @@ kafka_producer_static = kafka_client.topics[b'ais_cyprus_static'].get_producer()
 
 host = "0.0.0.0"
 port = 9094
+
+min_lat = 37.440604
+max_lat = 38.511865
+min_lon = 22.806318
+max_lon = 24.643915
 
 while True:
     try:
@@ -64,13 +70,15 @@ while True:
                     new_data["sog"] = message_decoded.get("speed")
                     new_data["cog"] = message_decoded.get("course")
                     new_data["ais_type"] = message_decoded.get("type")
-
+                        
                     db.ais_cyprus_dynamic.insert_one(new_data)
 
-                    
                     message_json = json.dumps(message_decoded)
                     message_bytes = message_json.encode('utf-8')
                     kafka_producer_dynamic.produce(message_bytes)
+
+                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        db.athens_ais.insert_one(new_data)
                     
                 elif message_type in [9, 18]:
 
@@ -88,7 +96,10 @@ while True:
                     message_json = json.dumps(message_decoded)
                     message_bytes = message_json.encode('utf-8')
                     kafka_producer_dynamic.produce(message_bytes)
-
+                    
+                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        db.athens_ais.insert_one(new_data)
+                        
                 elif message_type == 5:
 
                     new_data["mmsi"] = message_decoded.get("mmsi")
