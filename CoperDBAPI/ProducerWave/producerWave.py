@@ -257,21 +257,18 @@ def delivery_report(err, msg):
         logging.info(f'Message delivered to topic: {msg.topic()}')
 
 
-myclient = pymongo.MongoClient("mongodb://mongodb:27017")
-db = myclient["kafka_db"]
-mycol = db["waveData"]
-logging.info('waveData')
-
-if mycol.count_documents({}) == 0:
-    init_WaveData(mycol)
-    logging.info('empty')
-
 
 while True:
 
     myclient = pymongo.MongoClient("mongodb://mongodb:27017")
     db = myclient["kafka_db"]
     mycol = db["waveData"]
+
+    logging.info('emptyBefore')
+
+    if mycol.count_documents({}) == 0:
+      init_WaveData(mycol)
+      logging.info('empty')
 
     config = configparser.ConfigParser()
     config.read('config.conf')
