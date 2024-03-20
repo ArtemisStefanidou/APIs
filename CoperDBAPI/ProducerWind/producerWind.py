@@ -283,6 +283,7 @@ def init_WeatherData(collection):
         ]
   
   df = pd.DataFrame(WeatherData)
+  df['time'] = df['time'].dt.strftime('%Y-%m-%d %H:%M:%S')
   df['time'] = pd.to_datetime(df['time'], format='%Y-%m-%d %H:%M:%S')
   data = df.to_dict('records')
   collection.insert_many(data)
@@ -483,6 +484,7 @@ def init_WindData(collection):
         ]
   
   df = pd.DataFrame(WindData)
+  df['time'] = df['time'].dt.strftime('%Y-%m-%d %H:%M:%S')
   df['time'] = pd.to_datetime(df['time'], format='%Y-%m-%d %H:%M:%S')
   data = df.to_dict('records')
   collection.insert_many(data)
