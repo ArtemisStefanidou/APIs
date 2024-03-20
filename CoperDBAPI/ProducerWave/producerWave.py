@@ -148,7 +148,10 @@ def init_WaveData(collection):
                 "vtm10": 5.029999732971191
             }
         ]
-  collection.insert_many(WaveData)
+  
+  df = pd.DataFrame(WaveData)
+  df['time'] = pd.to_datetime(df['time'], format='%Y-%m-%d %H:%M:%S')
+  collection.insert_many(df)
 
 def create_square(lat1, lon1, distance_km):
     R = 6371.0  # Radius of the Earth in kilometers
