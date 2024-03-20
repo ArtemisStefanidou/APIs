@@ -97,6 +97,13 @@ mycolweather.drop()
 
 while True:
     try:
+        logging.info('emptyBefore')
+
+        if mycol.count_documents({}) == 0:
+          init_WindData(mycol)
+          init_WeatherData(mycolweather)
+          logging.info('empty')
+          
         config = configparser.ConfigParser()
         config.read('config.conf')
         lon, lat, rad = map(float,
