@@ -73,7 +73,17 @@ def get_living_lab_data():
     except Exception as e:
         return jsonify({'error': str(e)})
 
+@app.route('/test', methods=['GET'])
+def test():
+    try:
+        results = mycol_wave.find()
 
+        data_list = list(results)
+        logging.info(f'data_list: {data_list}')
+        json_data = json.loads(json_util.dumps(data_list))
+        return jsonify(json_data)
+    except Exception as e:
+        return jsonify({'error': str(e)})
 # def create_square(latitude, longitude, radius):
   
 #     radius_in_degrees = radius / 111.00
