@@ -32,6 +32,122 @@ logging.getLogger('').addHandler(console)
 #     max_longitude = longitude + radius_in_degrees
 
 #     return min_latitude, min_longitude, max_latitude, max_longitude
+def init_WaveData(collection):
+  WaveData = [
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "13/03/2024 12:00:00",
+                "vhm0": 0.6299999952316284,
+                "vmdr": 86.0999984741211,
+                "vtm10": 6.37999963760376
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "13/03/2024 15:00:00",
+                "vhm0": 0.5999999642372131,
+                "vmdr": 85.3499984741211,
+                "vtm10": 6.019999980926514
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "13/03/2024 18:00:00",
+                "vhm0": 0.550000011920929,
+                "vmdr": 85.74000549316406,
+                "vtm10": 6.159999847412109
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "13/03/2024 21:00:00",
+                "vhm0": 0.5199999809265137,
+                "vmdr": 87.05000305175781,
+                "vtm10": 6.099999904632568
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "14/03/2024 00:00:00",
+                "vhm0": 0.4699999988079071,
+                "vmdr": 86.70999908447266,
+                "vtm10": 6.029999732971191
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "14/03/2024 03:00:00",
+                "vhm0": 0.41999998688697815,
+                "vmdr": 86.24000549316406,
+                "vtm10": 5.909999847412109
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "14/03/2024 06:00:00",
+                "vhm0": 0.3700000047683716,
+                "vmdr": 85.69000244140625,
+                "vtm10": 5.799999713897705
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "14/03/2024 09:00:00",
+                "vhm0": 0.3499999940395355,
+                "vmdr": 84.06000518798828,
+                "vtm10": 5.799999713897705
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "14/03/2024 12:00:00",
+                "vhm0": 0.3199999928474426,
+                "vmdr": 83.95000457763672,
+                "vtm10": 5.690000057220459
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "14/03/2024 15:00:00",
+                "vhm0": 0.28999999165534973,
+                "vmdr": 83.75,
+                "vtm10": 5.579999923706055
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "14/03/2024 18:00:00",
+                "vhm0": 0.26999998092651367,
+                "vmdr": 82.26000213623047,
+                "vtm10": 5.329999923706055
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "14/03/2024 21:00:00",
+                "vhm0": 0.29999998211860657,
+                "vmdr": 74.19000244140625,
+                "vtm10": 4.929999828338623
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "15/03/2024 00:00:00",
+                "vhm0": 0.3199999928474426,
+                "vmdr": 72.56000518798828,
+                "vtm10": 5.029999732971191
+            },
+            {
+                "latitude": 43.0,
+                "longitude": 27.916666666666657,
+                "time": "15/03/2024 03:00:00",
+                "vhm0": 0.3199999928474426,
+                "vmdr": 69.61000061035156,
+                "vtm10": 5.029999732971191
+            }
+        ]
+    collection.insert_many(WaveData)
 
 def create_square(lat1, lon1, distance_km):
     R = 6371.0  # Radius of the Earth in kilometers
@@ -139,6 +255,13 @@ def delivery_report(err, msg):
     else:
         logging.info(f'Message delivered to topic: {msg.topic()}')
 
+
+myclient = pymongo.MongoClient("mongodb://mongodb:27017")
+db = myclient["kafka_db"]
+mycol = db["waveData"]
+  
+if mycol.count_documents({}) == 0:
+    init_WaveData(mycol)
 
 while True:
 
