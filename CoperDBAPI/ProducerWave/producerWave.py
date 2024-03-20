@@ -151,7 +151,8 @@ def init_WaveData(collection):
   
   df = pd.DataFrame(WaveData)
   df['time'] = pd.to_datetime(df['time'], format='%Y-%m-%d %H:%M:%S')
-  collection.insert_many(df)
+  data = df.to_dict('records')
+  collection.insert_many(data)
 
 def create_square(lat1, lon1, distance_km):
     R = 6371.0  # Radius of the Earth in kilometers
