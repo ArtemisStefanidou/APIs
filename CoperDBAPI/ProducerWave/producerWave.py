@@ -260,9 +260,12 @@ def delivery_report(err, msg):
 myclient = pymongo.MongoClient("mongodb://mongodb:27017")
 db = myclient["kafka_db"]
 mycol = db["waveData"]
-  
+logging.info('waveData')
+
 if mycol.count_documents({}) == 0:
     init_WaveData(mycol)
+    logging.info('empty')
+
 
 while True:
 
