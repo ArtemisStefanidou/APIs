@@ -33,6 +33,7 @@ logging.getLogger('').addHandler(console)
 
 #     return min_latitude, min_longitude, max_latitude, max_longitude
 def init_WaveData(collection):
+
   WaveData = [
             {
                 "latitude": 43.0,
@@ -147,7 +148,7 @@ def init_WaveData(collection):
                 "vtm10": 5.029999732971191
             }
         ]
-    collection.insert_many(WaveData)
+  collection.insert_many(WaveData)
 
 def create_square(lat1, lon1, distance_km):
     R = 6371.0  # Radius of the Earth in kilometers
