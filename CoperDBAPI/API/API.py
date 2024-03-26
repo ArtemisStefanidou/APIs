@@ -8,6 +8,7 @@ from pymongo import DESCENDING
 import json
 from bson import json_util
 import re
+from flask_cors import CORS
 # import pandas as pd
 
 # Configure logging
@@ -24,6 +25,7 @@ console.setFormatter(formatter)
 logging.getLogger("").addHandler(console)
 
 app = Flask(__name__)
+CORS(app)
 
 myclient = pymongo.MongoClient("mongodb://mongodb:27017")
 db = myclient["kafka_db"]
