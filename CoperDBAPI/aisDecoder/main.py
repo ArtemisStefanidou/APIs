@@ -49,6 +49,7 @@ while True:
                 message_type = message_data['decoded']['type']
 
                 message_decoded = message_data['decoded']
+                logging.info(f'message: {message_decoded}')
                 # logging.info(f'message: {message_decoded}')
                 
                 current_utc_time = datetime.utcnow()
