@@ -23,6 +23,7 @@ db = myclient["kafka_db"]
 mycol_dynamic = db["ais_cyprus_dynamic"]
 mycol_static = db["ais_cyprus_static"]
 athens_ais = db['athens_ais']
+all_ais = db['all_ais']
 
 # kafka_client = KafkaClient(hosts='kafka1:29092')
 # kafka_producer_dynamic = kafka_client.topics[b'ais_cyprus_dynamic'].get_producer()
@@ -50,6 +51,8 @@ while True:
 
                 message_decoded = message_data['decoded']
                 logging.info(f'message: {message_decoded}')
+                db.all_ais.insert_one(message_decoded)
+                
                 # logging.info(f'message: {message_decoded}')
                 
                 current_utc_time = datetime.utcnow()
