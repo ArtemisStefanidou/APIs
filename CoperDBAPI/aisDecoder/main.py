@@ -82,7 +82,7 @@ while True:
                     new_data["ais_type"] = message["type"]
 
                     logging.info(f'new_data: {new_data}')
-                    db.ais_cyprus_dynamic.insert_one(new_data)
+                    mycol_dynamic.insert_one(new_data)
 
                     # message_json = json.dumps(message_decoded)
                     # message_bytes = message_json.encode('utf-8')
