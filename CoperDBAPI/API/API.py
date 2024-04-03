@@ -359,8 +359,9 @@ def data_info():
 @app.route("/athens", methods=["GET"])
 def get_athens_data():
     try:
-        # Ανακτήστε τα τελευταία 10 έγγραφα από το collection
-        last_10_documents = collection.find().sort([('_id', -1)]).limit(10)
+
+        last_10_documents = collection.find()
+        # .sort([('_id', -1)]).limit(10)
 
         data_list = list(last_10_documents)
         logging.info(f'data_list: {data_list}')
