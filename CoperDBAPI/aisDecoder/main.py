@@ -163,6 +163,7 @@ while True:
 
     except Exception as e:
         logging.error(f'UDP stream failure: {e}')
+        logging.error(f'ais: {ais}')
 
     
 
