@@ -47,7 +47,7 @@ max_lon = 24.643915
 while True:
     try:
         
-        for msg in UDPStream(host, port):
+        for msg in UDPReceiver(host, port):
             logging.info(f'msg: {msg}')
             decoded_b = decode(msg)
             message = decoded_b.asdict()
