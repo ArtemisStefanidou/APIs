@@ -4,7 +4,7 @@ import json
 import pymongo
 from pykafka import KafkaClient
 from datetime import datetime
-from pyais import decode
+from pyais import decode_msg
 
 # Configure logging
 logging.basicConfig(
@@ -43,7 +43,7 @@ while True:
         
         for msg in UDPStream(host, port):
             logging.info(f'msg: {msg}')
-            decoded_b = decode(msg)
+            decoded_b = decode_msg(msg)
             # message = msg.decode()
             logging.info(f'message: {decoded_b}')
             
