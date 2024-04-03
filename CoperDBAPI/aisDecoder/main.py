@@ -44,6 +44,8 @@ max_lon = 24.643915
 # decoded_s = as_dict['msg_type']
 # logging.info(f'decoded_s: {decoded_s}')
 
+ais = []
+
 while True:
     try:
         
@@ -53,6 +55,7 @@ while True:
             # logging.info(f'decoded_s: {decoded_s}')
             # decoded_b = decode(msg)
             message = decoded_b.asdict()
+            ais = message
             # logging.info(f'as_dict: {message}')
             # message = msg.decode()
             # logging.info(f'message: {decoded_b}')
