@@ -1,4 +1,4 @@
-from pyais.stream import UDPReceiver
+from pyais.stream import UDPStream
 import logging
 import json
 import pymongo
@@ -41,7 +41,7 @@ max_lon = 24.643915
 while True:
     try:
         
-        for msg in UDPReceiver(host, port):
+        for msg in UDPStream(host, port):
             logging.info(f'msg: {msg}')
             decoded_b = decode(msg)
             # message = msg.decode()
