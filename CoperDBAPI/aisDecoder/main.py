@@ -70,7 +70,7 @@ while True:
                 new_data["timestamp"] = formatted_time
                 
                 if message_type in [1, 2, 3]:
-                    logging.info(f'message: {message}')
+                    logging.info(f'new_data: {new_data}')
 
                     new_data["mmsi"] = message["mmsi"]
                     new_data["nav_status"] = None
