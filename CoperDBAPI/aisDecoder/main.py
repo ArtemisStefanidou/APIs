@@ -5,6 +5,7 @@ import pymongo
 from pykafka import KafkaClient
 from datetime import datetime
 from pyais import decode
+from pyais.stream import UDPReceiver
 
 # Configure logging
 logging.basicConfig(
