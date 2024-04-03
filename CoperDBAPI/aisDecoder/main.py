@@ -49,9 +49,9 @@ while True:
         
         for msg in UDPReceiver(host, port):
             logging.info(f'msg: {msg}')
-            decoded_s = msg.decode()
-            logging.info(f'decoded_s: {decoded_s}')
-            decoded_b = decode(msg)
+            decoded_b = msg.decode()
+            # logging.info(f'decoded_s: {decoded_s}')
+            # decoded_b = decode(msg)
             message = decoded_b.asdict()
             logging.info(f'as_dict: {message}')
             # message = msg.decode()
