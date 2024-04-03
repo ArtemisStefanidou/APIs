@@ -48,7 +48,7 @@ while True:
     try:
         
         for msg in UDPReceiver(host, port):
-            logging.info(f'msg: {msg}')
+            # logging.info(f'msg: {msg}')
             decoded_b = msg.decode()
             # logging.info(f'decoded_s: {decoded_s}')
             # decoded_b = decode(msg)
