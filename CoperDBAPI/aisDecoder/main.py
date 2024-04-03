@@ -56,7 +56,7 @@ while True:
             # decoded_b = decode(msg)
             message = decoded_b.asdict()
             ais = message
-            logging.info(f'as_dict: {message}')
+            # logging.info(f'as_dict: {message}')
             # message = msg.decode()
             # logging.info(f'message: {decoded_b}')
             
@@ -137,7 +137,7 @@ while True:
 
                 elif message_type == 24:
 
-                    # logging.info(f'message: {message_data}')
+                    logging.info(f'message: {message}')
 
                     new_data["mmsi"] = message["mmsi"]
                     new_data["imo"] = None
