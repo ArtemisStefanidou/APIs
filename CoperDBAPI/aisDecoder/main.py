@@ -79,7 +79,7 @@ while True:
                     new_data["heading"] = message["heading"]
                     new_data["sog"] = message["speed"]
                     new_data["cog"] = message["course"]
-                    new_data["ais_type"] = message["type"]
+                    new_data["ais_type"] = message["msg_type"]
 
                     logging.info(f'new_data: {new_data}')
                     mycol_dynamic.insert_one(new_data)
@@ -100,7 +100,7 @@ while True:
                     new_data["heading"] = message["heading"]
                     new_data["sog"] = message["speed"]
                     new_data["cog"] = message["course"]
-                    new_data["ais_type"] = message["type"]
+                    new_data["ais_type"] = message["msg_type"]
     
                     db.ais_cyprus_dynamic.insert_one(new_data)
 
@@ -124,7 +124,7 @@ while True:
                     new_data["port"] = message["to_port"]
                     new_data["starboard"] = message["to_starboard"]
                     new_data["destination"] = message["destination"]
-                    new_data["ais_type"] = message["type"]
+                    new_data["ais_type"] = message["msg_type"]
 
                     db.ais_cyprus_static.insert_one(new_data)
 
@@ -147,7 +147,7 @@ while True:
                     new_data["port"] = message["to_port"]
                     new_data["starboard"] = message["to_starboard"]
                     new_data["destination"] = None
-                    new_data["ais_type"] = message["type"]
+                    new_data["ais_type"] = message["msg_type"]
                     
                     db.ais_cyprus_static.insert_one(new_data)
 
