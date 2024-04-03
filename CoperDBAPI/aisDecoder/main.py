@@ -38,11 +38,11 @@ max_lat = 38.511865
 min_lon = 22.806318
 max_lon = 24.643915
 
-decoded_s = decode("!AIVDM,1,1,,A,137GAh001RR6v3TDS4HDdkb40D4h,0*35")
-as_dict = decoded_s.asdict()
-logging.info(f'as_dict: {as_dict}')
-decoded_s = as_dict['msg_type']
-logging.info(f'decoded_s: {decoded_s}')
+# decoded_s = decode("!AIVDM,1,1,,A,137GAh001RR6v3TDS4HDdkb40D4h,0*35")
+# as_dict = decoded_s.asdict()
+# logging.info(f'as_dict: {as_dict}')
+# decoded_s = as_dict['msg_type']
+# logging.info(f'decoded_s: {decoded_s}')
 
 while True:
     try:
@@ -81,8 +81,8 @@ while True:
                         
                     db.ais_cyprus_dynamic.insert_one(new_data)
 
-                    message_json = json.dumps(message_decoded)
-                    message_bytes = message_json.encode('utf-8')
+                    # message_json = json.dumps(message_decoded)
+                    # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_dynamic.produce(message_bytes)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
@@ -101,8 +101,8 @@ while True:
     
                     db.ais_cyprus_dynamic.insert_one(new_data)
 
-                    message_json = json.dumps(message_decoded)
-                    message_bytes = message_json.encode('utf-8')
+                    # message_json = json.dumps(message_decoded)
+                    # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_dynamic.produce(message_bytes)
                     
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
@@ -125,8 +125,8 @@ while True:
 
                     db.ais_cyprus_static.insert_one(new_data)
 
-                    message_json = json.dumps(message_decoded)
-                    message_bytes = message_json.encode('utf-8')
+                    # message_json = json.dumps(message_decoded)
+                    # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_static.produce(message_bytes)
 
                 elif message_type == 24 and message["to_port"] is not None:
@@ -148,8 +148,8 @@ while True:
                     
                     db.ais_cyprus_static.insert_one(new_data)
 
-                    message_json = json.dumps(message_decoded)
-                    message_bytes = message_json.encode('utf-8')
+                    # message_json = json.dumps(message_decoded)
+                    # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_static.produce(message_bytes)
                     
                
