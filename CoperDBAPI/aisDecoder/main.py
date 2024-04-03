@@ -39,6 +39,7 @@ min_lon = 22.806318
 max_lon = 24.643915
 
 decoded_s = decode("!AIVDM,1,1,,A,137GAh001RR6v3TDS4HDdkb40D4h,0*35")
+decoded_s = decoded_s['msg_typ']
 logging.info(f'decoded_s: {decoded_s}')
 
 # while True:
