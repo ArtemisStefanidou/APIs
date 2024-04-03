@@ -117,7 +117,7 @@ while True:
                     new_data["imo"] = message["imo"]
                     new_data["ship_name"] = message["shipname"]
                     new_data["call_sign"] = message["callsign"]
-                    new_data["ship_type"] = message["shiptype"]
+                    new_data["ship_type"] = message["ship_type"]
                     new_data["draught"] = message["draught"]
                     new_data["bow"] = message["to_bow"]
                     new_data["stern"] = message["to_stern"]
