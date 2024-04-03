@@ -41,6 +41,7 @@ while True:
     try:
         
         for msg in UDPStream(host, port):
+            logging.info(f'msg: {msg}')
             message = msg.decode()
 
             if message is not None:
@@ -50,7 +51,7 @@ while True:
                 message_type = message_data['decoded']['type']
 
                 message_decoded = message_data['decoded']
-                logging.info(f'message: {message_decoded}')
+                # logging.info(f'message: {message_decoded}')
                 db.all_ais.insert_one(message_decoded)
                 
                 # logging.info(f'message: {message_decoded}')
@@ -127,7 +128,7 @@ while True:
 
                 elif message_type == 24 and message_decoded.get("to_port") is not None:
 
-                    logging.info(f'message: {message_data}')
+                    # logging.info(f'message: {message_data}')
 
                     new_data["mmsi"] = message_decoded.get("mmsi")
                     new_data["imo"] = None
