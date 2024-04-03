@@ -43,7 +43,8 @@ while True:
         for msg in UDPStream(host, port):
             logging.info(f'msg: {msg}')
             message = msg.decode()
-
+            logging.info(f'message: {message}')
+            
             if message is not None:
                 message_json = message.to_json()
 
