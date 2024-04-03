@@ -1,4 +1,3 @@
-# from pyais.stream import UDPStream
 import logging
 import json
 import pymongo
@@ -45,125 +44,119 @@ logging.info(f'as_dict: {as_dict}')
 decoded_s = as_dict['msg_type']
 logging.info(f'decoded_s: {decoded_s}')
 
-# while True:
-#     try:
+while True:
+    try:
         
-#         for msg in UDPStream(host, port):
-#             logging.info(f'msg: {msg}')
-#             decoded_b = decode(msg)
-#             # message = msg.decode()
-#             logging.info(f'message: {decoded_b}')
+        for msg in UDPStream(host, port):
+            logging.info(f'msg: {msg}')
+            decoded_b = decode(msg)
+            message = decoded_b.asdict()
+            logging.info(f'as_dict: {message}')
+            # message = msg.decode()
+            # logging.info(f'message: {decoded_b}')
             
-#             if message is not None:
-#                 message_json = message.to_json()
-
-#                 message_data = json.loads(message_json)
-#                 message_type = message_data['decoded']['type']
-
-#                 message_decoded = message_data['decoded']
-#                 # logging.info(f'message: {message_decoded}')
-#                 db.all_ais.insert_one(message_decoded)
+            if message is not None:
+                message_type = message['msg_type']
+                logging.info(f'message: {message}')
                 
-#                 # logging.info(f'message: {message_decoded}')
+                # logging.info(f'message: {message_decoded}')
                 
-#                 current_utc_time = datetime.utcnow()
-#                 formatted_time = current_utc_time.strftime("%d/%m/%Y %H:%M:%S")
+                current_utc_time = datetime.utcnow()
+                formatted_time = current_utc_time.strftime("%d/%m/%Y %H:%M:%S")
 
-#                 new_data = {}
-#                 new_data["timestamp"] = formatted_time
+                new_data = {}
+                new_data["timestamp"] = formatted_time
                 
-#                 if message_type in [1, 2, 3]:
+                if message_type in [1, 2, 3]:
+                    logging.info(f'message: {message}')
 
-#                     message_decoded = message_data['decoded']
-#                     logging.info(f'message: {message_decoded}')
-
-#                     new_data["mmsi"] = message_decoded.get("mmsi")
-#                     new_data["nav_status"] = None
-#                     new_data["longitude"] = message_decoded.get("lon")
-#                     new_data["latitude"] = message_decoded.get("lat")
-#                     new_data["heading"] = message_decoded.get("heading")
-#                     new_data["sog"] = message_decoded.get("speed")
-#                     new_data["cog"] = message_decoded.get("course")
-#                     new_data["ais_type"] = message_decoded.get("type")
+                    new_data["mmsi"] = message["mmsi"]
+                    new_data["nav_status"] = None
+                    new_data["longitude"] = message["lon"]
+                    new_data["latitude"] = message["lat"]
+                    new_data["heading"] = message["heading"]
+                    new_data["sog"] = message["speed"]
+                    new_data["cog"] = message["course"]
+                    new_data["ais_type"] = message["type"]
                         
-#                     db.ais_cyprus_dynamic.insert_one(new_data)
+                    db.ais_cyprus_dynamic.insert_one(new_data)
 
-#                     message_json = json.dumps(message_decoded)
-#                     message_bytes = message_json.encode('utf-8')
-#                     # kafka_producer_dynamic.produce(message_bytes)
+                    message_json = json.dumps(message_decoded)
+                    message_bytes = message_json.encode('utf-8')
+                    # kafka_producer_dynamic.produce(message_bytes)
 
-#                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-#                         db.athens_ais.insert_one(new_data)
+                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        db.athens_ais.insert_one(new_data)
                     
-#                 elif message_type in [9, 18]:
+                elif message_type in [9, 18]:
 
-#                     new_data["mmsi"] = message_decoded.get("mmsi")
-#                     new_data["nav_status"] = None
-#                     new_data["longitude"] = message_decoded.get("lon")
-#                     new_data["latitude"] = message_decoded.get("lat")
-#                     new_data["heading"] = message_decoded.get("heading")
-#                     new_data["sog"] = message_decoded.get("speed")
-#                     new_data["cog"] = message_decoded.get("course")
-#                     new_data["ais_type"] = message_decoded.get("type")
+                    new_data["mmsi"] = message["mmsi"]
+                    new_data["nav_status"] = None
+                    new_data["longitude"] = message["lon"]
+                    new_data["latitude"] = message["lat"]
+                    new_data["heading"] = message["heading"]
+                    new_data["sog"] = message["speed"]
+                    new_data["cog"] = message["course"]
+                    new_data["ais_type"] = message["type"]
     
-#                     db.ais_cyprus_dynamic.insert_one(new_data)
+                    db.ais_cyprus_dynamic.insert_one(new_data)
 
-#                     message_json = json.dumps(message_decoded)
-#                     message_bytes = message_json.encode('utf-8')
-#                     # kafka_producer_dynamic.produce(message_bytes)
+                    message_json = json.dumps(message_decoded)
+                    message_bytes = message_json.encode('utf-8')
+                    # kafka_producer_dynamic.produce(message_bytes)
                     
-#                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-#                         db.athens_ais.insert_one(new_data)
+                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        db.athens_ais.insert_one(new_data)
                         
-#                 elif message_type == 5:
+                elif message_type == 5:
 
-#                     new_data["mmsi"] = message_decoded.get("mmsi")
-#                     new_data["imo"] = message_decoded.get("imo")
-#                     new_data["ship_name"] = message_decoded.get("shipname")
-#                     new_data["call_sign"] = message_decoded.get("callsign")
-#                     new_data["ship_type"] = message_decoded.get("shiptype")
-#                     new_data["draught"] = message_decoded.get("draught")
-#                     new_data["bow"] = message_decoded.get("to_bow")
-#                     new_data["stern"] = message_decoded.get("to_stern")
-#                     new_data["port"] = message_decoded.get("to_port")
-#                     new_data["starboard"] = message_decoded.get("to_starboard")
-#                     new_data["destination"] = message_decoded.get("destination")
-#                     new_data["ais_type"] = message_decoded.get("type")
+                    new_data["mmsi"] = message["mmsi"]
+                    new_data["imo"] = message["imo"]
+                    new_data["ship_name"] = message["shipname"]
+                    new_data["call_sign"] = message["callsign"]
+                    new_data["ship_type"] = message["shiptype"]
+                    new_data["draught"] = message["draught"]
+                    new_data["bow"] = message["to_bow"]
+                    new_data["stern"] = message["to_stern"]
+                    new_data["port"] = message["to_port"]
+                    new_data["starboard"] = message["to_starboard"]
+                    new_data["destination"] = message["destination"]
+                    new_data["ais_type"] = message["type"]
 
-#                     db.ais_cyprus_static.insert_one(new_data)
+                    db.ais_cyprus_static.insert_one(new_data)
 
-#                     message_json = json.dumps(message_decoded)
-#                     message_bytes = message_json.encode('utf-8')
-#                     # kafka_producer_static.produce(message_bytes)
+                    message_json = json.dumps(message_decoded)
+                    message_bytes = message_json.encode('utf-8')
+                    # kafka_producer_static.produce(message_bytes)
 
-#                 elif message_type == 24 and message_decoded.get("to_port") is not None:
+                elif message_type == 24 and message["to_port"] is not None:
 
-#                     # logging.info(f'message: {message_data}')
+                    # logging.info(f'message: {message_data}')
 
-#                     new_data["mmsi"] = message_decoded.get("mmsi")
-#                     new_data["imo"] = None
-#                     new_data["ship_name"] = None
-#                     new_data["call_sign"] = message_decoded.get("callsign")
-#                     new_data["ship_type"] = message_decoded.get("shiptype")
-#                     new_data["draught"] = None
-#                     new_data["bow"] = message_decoded.get("to_bow")
-#                     new_data["stern"] = message_decoded.get("to_stern")
-#                     new_data["port"] = message_decoded.get("to_port")
-#                     new_data["starboard"] = message_decoded.get("to_starboard")
-#                     new_data["destination"] = None
-#                     new_data["ais_type"] = message_decoded.get("type")
+                    new_data["mmsi"] = message["mmsi"]
+                    new_data["imo"] = None
+                    new_data["ship_name"] = None
+                    new_data["call_sign"] = message["callsign"]
+                    new_data["ship_type"] = message["shiptype"]
+                    new_data["draught"] = None
+                    new_data["bow"] = message["to_bow"]
+                    new_data["stern"] = message["to_stern"]
+                    new_data["port"] = message["to_port"]
+                    new_data["starboard"] = message["to_starboard"]
+                    new_data["destination"] = None
+                    new_data["ais_type"] = message["type"]
                     
-#                     db.ais_cyprus_static.insert_one(new_data)
+                    db.ais_cyprus_static.insert_one(new_data)
 
-#                     message_json = json.dumps(message_decoded)
-#                     message_bytes = message_json.encode('utf-8')
-#                     # kafka_producer_static.produce(message_bytes)
+                    message_json = json.dumps(message_decoded)
+                    message_bytes = message_json.encode('utf-8')
+                    # kafka_producer_static.produce(message_bytes)
                     
                
                     
 
-#     except Exception as e:
-#         logging.error(f'UDP stream failure: {e}')
+    except Exception as e:
+        logging.error(f'UDP stream failure: {e}')
 
     
 
