@@ -80,7 +80,8 @@ while True:
                     new_data["sog"] = message["speed"]
                     new_data["cog"] = message["course"]
                     new_data["ais_type"] = message["type"]
-                        
+
+                    logging.info(f'new_data: {new_data}')
                     db.ais_cyprus_dynamic.insert_one(new_data)
 
                     # message_json = json.dumps(message_decoded)
