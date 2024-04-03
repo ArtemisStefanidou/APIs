@@ -53,7 +53,7 @@ while True:
             # logging.info(f'decoded_s: {decoded_s}')
             # decoded_b = decode(msg)
             message = decoded_b.asdict()
-            logging.info(f'as_dict: {message}')
+            # logging.info(f'as_dict: {message}')
             # message = msg.decode()
             # logging.info(f'message: {decoded_b}')
             
@@ -81,7 +81,7 @@ while True:
                     new_data["cog"] = message["course"]
                     new_data["ais_type"] = message["msg_type"]
 
-                    logging.info(f'new_data: {new_data}')
+                    # logging.info(f'new_data: {new_data}')
                     mycol_dynamic.insert_one(new_data)
 
                     # message_json = json.dumps(message_decoded)
@@ -112,7 +112,7 @@ while True:
                         db.athens_ais.insert_one(new_data)
                         
                 elif message_type == 5:
-
+                    logging.info(f'as_dict: {message}')
                     new_data["mmsi"] = message["mmsi"]
                     new_data["imo"] = message["imo"]
                     new_data["ship_name"] = message["shipname"]
@@ -140,7 +140,7 @@ while True:
                     new_data["imo"] = None
                     new_data["ship_name"] = None
                     new_data["call_sign"] = message["callsign"]
-                    new_data["ship_type"] = message["shiptype"]
+                    new_data["ship_type"] = message["ship_type"]
                     new_data["draught"] = None
                     new_data["bow"] = message["to_bow"]
                     new_data["stern"] = message["to_stern"]
