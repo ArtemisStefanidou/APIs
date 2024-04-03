@@ -40,8 +40,8 @@ max_lon = 24.643915
 
 decoded_s = decode("!AIVDM,1,1,,A,137GAh001RR6v3TDS4HDdkb40D4h,0*35")
 as_dict = decoded_s.asdict()
-# decoded_s = decoded_s['msg_typ']
-logging.info(f'decoded_s: {as_dict}')
+decoded_s = as_dict['msg_typ']
+logging.info(f'decoded_s: {decoded_s}')
 
 # while True:
 #     try:
