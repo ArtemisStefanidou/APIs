@@ -1,4 +1,4 @@
-from pyais.stream import UDPStream
+# from pyais.stream import UDPStream
 import logging
 import json
 import pymongo
