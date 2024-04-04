@@ -115,15 +115,15 @@ while True:
                     new_data["cog"] = message["course"]
                     new_data["ais_type"] = message["msg_type"]
 
-                    # logging.info(f'new_data: {new_data}')
-                    mycol_dynamic.insert_one(new_data)
-
                     type_data = type(new_data)
                     logging.info(f'type_data: {new_data}')
                     message = json.dumps(new_data)
                     
                     producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
+
+                    # logging.info(f'new_data: {new_data}')
+                    mycol_dynamic.insert_one(new_data)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
                         db.athens_ais.insert_one(new_data)
