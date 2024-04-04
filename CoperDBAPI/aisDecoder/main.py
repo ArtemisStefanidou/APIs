@@ -201,9 +201,9 @@ while True:
                     new_data["port"] = None
                     new_data["starboard"] = None
                     new_data["destination"] = None
-                    new_data["ais_type"] = None
+                    new_data["ais_type"] = message["msg_type"]
 
-                    logging.info(f'new_data: {new_data}')
+                    # logging.info(f'new_data: {new_data}')
                     
                     db.ais_cyprus_static.insert_one(new_data)
 
