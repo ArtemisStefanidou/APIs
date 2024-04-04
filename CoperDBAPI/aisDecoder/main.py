@@ -145,7 +145,7 @@ while True:
                     # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_static.produce(message_bytes)
 
-                elif message_type == 24:
+                elif message_type == 24 and message["'ship_type'"] != None:
 
                     # logging.info(f'message: {message}')
 
@@ -161,6 +161,24 @@ while True:
                     new_data["starboard"] = message["to_starboard"]
                     new_data["destination"] = None
                     new_data["ais_type"] = message["msg_type"]
+                    
+                    db.ais_cyprus_static.insert_one(new_data)
+                    
+
+                elif message_type == 24:
+
+                    new_data["mmsi"] = message["mmsi"]
+                    new_data["imo"] = None
+                    new_data["ship_name"] = message["shipname"]
+                    new_data["call_sign"] = None
+                    new_data["ship_type"] = None
+                    new_data["draught"] = None
+                    new_data["bow"] = None
+                    new_data["stern"] = None
+                    new_data["port"] = None
+                    new_data["starboard"] = None
+                    new_data["destination"] = None
+                    new_data["ais_type"] = None
                     
                     db.ais_cyprus_static.insert_one(new_data)
 
