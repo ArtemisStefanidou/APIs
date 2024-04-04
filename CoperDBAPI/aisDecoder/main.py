@@ -166,7 +166,7 @@ while True:
                     # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_static.produce(message_bytes)
 
-                elif message_type == 24 and message["ship_type"] != None:
+                elif message_type == 24 and "ship_type" in message:
 
                     # logging.info(f'message: {message}')
 
