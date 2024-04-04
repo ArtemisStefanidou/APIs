@@ -66,7 +66,7 @@ while True:
             # decoded_b = decode(msg)
             message = decoded_b.asdict()
             ais = message
-            logging.info(f'as_dict: {message}')
+            # logging.info(f'as_dict: {message}')
             # message = msg.decode()
             # logging.info(f'message: {decoded_b}')
             
@@ -81,6 +81,7 @@ while True:
 
                 new_data = {}
                 new_data["timestamp"] = formatted_time
+                logging.info(f'formatted_time: {formatted_time}')
                 
                 if message_type in [1, 2, 3]:
                     # logging.info(f'new_data: {new_data}')
