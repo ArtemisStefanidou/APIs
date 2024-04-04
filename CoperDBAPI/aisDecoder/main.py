@@ -29,7 +29,7 @@ all_ais = db['all_ais']
 
 different_format_timestamps = []
 
-documents = db.ais_cyprus_static.find()
+documents = db.ais_cyprus_dynamic.find()
 
 for doc in documents:
     try:
@@ -38,7 +38,7 @@ for doc in documents:
         different_format_timestamps.append(doc['timestamp'])
 
 for timestamp in different_format_timestamps:
-    logging.info("timestamp", timestamp)
+    logging.info(f'timestamp: {timestamp}')
 
 # kafka_client = KafkaClient(hosts='kafka1:29092')
 # kafka_producer_dynamic = kafka_client.topics[b'ais_cyprus_dynamic'].get_producer()
@@ -65,7 +65,7 @@ producer = Producer({
 topic_metadata = producer.list_topics()
 topic_list = topic_metadata.topics
 for topic in topic_list:
-    logging.info("------------------------------------------", topic)
+    logging.info(f'topic: {topic}')
 
 ais = []
 
