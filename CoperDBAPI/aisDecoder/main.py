@@ -38,7 +38,7 @@ for doc in documents:
         different_format_timestamps.append(doc['timestamp'])
 
 for timestamp in different_format_timestamps:
-    print(timestamp)
+    logging.info("timestamp", timestamp)
 
 # kafka_client = KafkaClient(hosts='kafka1:29092')
 # kafka_producer_dynamic = kafka_client.topics[b'ais_cyprus_dynamic'].get_producer()
