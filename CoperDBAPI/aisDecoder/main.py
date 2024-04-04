@@ -27,7 +27,7 @@ mycol_static = db["ais_cyprus_static"]
 athens_ais = db['athens_ais']
 all_ais = db['all_ais']
 
-db.ais_cyprus_static.deleteMany({ "ais_type": null })
+db.ais_cyprus_static.delete_many({ "ais_type": None })
 
 # kafka_client = KafkaClient(hosts='kafka1:29092')
 # kafka_producer_dynamic = kafka_client.topics[b'ais_cyprus_dynamic'].get_producer()
