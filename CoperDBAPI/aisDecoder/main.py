@@ -119,10 +119,10 @@ while True:
                     logging.info(f'type_data: {new_data}')
                     message = json.dumps(new_data)
                     
-                    producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
+                    result = producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
 
-                    # logging.info(f'new_data: {new_data}')
+                    logging.info(f'result: {result}')
                     mycol_dynamic.insert_one(new_data)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
