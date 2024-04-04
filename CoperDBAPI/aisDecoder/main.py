@@ -117,6 +117,8 @@ while True:
 
                     # logging.info(f'new_data: {new_data}')
                     mycol_dynamic.insert_one(new_data)
+
+                    message = json.dumps(message)
                     
                     producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
