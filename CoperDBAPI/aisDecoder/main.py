@@ -81,7 +81,7 @@ while True:
 
                 new_data = {}
                 new_data["timestamp"] = formatted_time
-                logging.info(f'formatted_time: {formatted_time}')
+                # logging.info(f'formatted_time: {formatted_time}')
                 
                 if message_type in [1, 2, 3]:
                     # logging.info(f'new_data: {new_data}')
@@ -186,7 +186,9 @@ while True:
                     db.ais_cyprus_static.insert_one(new_data)
                     
 
-                elif message_type == 24:
+                elif message_type == 24 and "shipname" in message:
+
+                    
 
                     new_data["mmsi"] = message["mmsi"]
                     new_data["imo"] = None
@@ -200,6 +202,8 @@ while True:
                     new_data["starboard"] = None
                     new_data["destination"] = None
                     new_data["ais_type"] = None
+
+                    logging.info(f'new_data: {new_data}')
                     
                     db.ais_cyprus_static.insert_one(new_data)
 
