@@ -27,7 +27,18 @@ mycol_static = db["ais_cyprus_static"]
 athens_ais = db['athens_ais']
 all_ais = db['all_ais']
 
-db.ais_cyprus_static.delete_many({ "ais_type": None })
+different_format_timestamps = []
+
+documents = db.ais_cyprus_static.find()
+
+for doc in documents:
+    try:
+        formatted_timestamp = datetime.strptime(doc['timestamp'], '%d/%m/%Y %H:%M:%S')
+    except ValueError:
+        different_format_timestamps.append(doc['timestamp'])
+
+for timestamp in different_format_timestamps:
+    print(timestamp)
 
 # kafka_client = KafkaClient(hosts='kafka1:29092')
 # kafka_producer_dynamic = kafka_client.topics[b'ais_cyprus_dynamic'].get_producer()
