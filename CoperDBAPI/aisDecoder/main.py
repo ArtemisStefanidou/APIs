@@ -44,6 +44,15 @@ max_lon = 24.643915
 # decoded_s = as_dict['msg_type']
 # logging.info(f'decoded_s: {decoded_s}')
 
+# Create the Kafka producer
+producer = Producer({
+    'bootstrap.servers': 'kafka1:29092'
+})
+topic_metadata = producer.list_topics()
+topic_list = topic_metadata.topics
+for topic in topic_list:
+    logging.info("------------------------------------------", topic)
+
 ais = []
 
 while True:
