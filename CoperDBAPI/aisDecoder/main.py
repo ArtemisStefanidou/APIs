@@ -86,7 +86,7 @@ while True:
                     # logging.info(f'new_data: {new_data}')
 
                     new_data["mmsi"] = message["mmsi"]
-                    new_data["nav_status"] = None
+                    new_data["nav_status"] = message["status"]
                     new_data["longitude"] = message["lon"]
                     new_data["latitude"] = message["lat"]
                     new_data["heading"] = message["heading"]
