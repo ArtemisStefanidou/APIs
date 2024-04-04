@@ -104,7 +104,27 @@ while True:
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
                         db.athens_ais.insert_one(new_data)
                     
-                elif message_type in [9, 18]:
+                elif message_type in [9]:
+
+                    new_data["mmsi"] = message["mmsi"]
+                    new_data["nav_status"] = None
+                    new_data["longitude"] = message["lon"]
+                    new_data["latitude"] = message["lat"]
+                    new_data["heading"] = None
+                    new_data["sog"] = message["speed"]
+                    new_data["cog"] = message["course"]
+                    new_data["ais_type"] = message["msg_type"]
+    
+                    db.ais_cyprus_dynamic.insert_one(new_data)
+
+                    # message_json = json.dumps(message_decoded)
+                    # message_bytes = message_json.encode('utf-8')
+                    # kafka_producer_dynamic.produce(message_bytes)
+                    
+                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        db.athens_ais.insert_one(new_data)
+
+                elif message_type in [18]:
 
                     new_data["mmsi"] = message["mmsi"]
                     new_data["nav_status"] = None
