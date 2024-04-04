@@ -66,7 +66,7 @@ topic_metadata = producer.list_topics()
 topic_list = topic_metadata.topics
 for topic in topic_list:
     logging.info(f'topic: {topic}')
-topic = 'ais_cyprus_dynamic'
+# topic = 'ais_cyprus_dynamic'
 
 ais = []
 
@@ -115,14 +115,14 @@ while True:
                     new_data["cog"] = message["course"]
                     new_data["ais_type"] = message["msg_type"]
 
-                    type_data = type(new_data)
-                    logging.info(f'type_data: {new_data}')
-                    message = json.dumps(new_data)
+                    # type_data = type(new_data)
+                    # logging.info(f'type_data: {new_data}')
+                    # message = json.dumps(new_data)
                     
-                    result = producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
-                    producer.flush()
+                    # result = producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
+                    # producer.flush()
 
-                    logging.info(f'result: {result}')
+                    # logging.info(f'result: {result}')
                     mycol_dynamic.insert_one(new_data)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
