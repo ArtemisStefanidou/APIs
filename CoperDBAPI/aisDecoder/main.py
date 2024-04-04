@@ -33,7 +33,7 @@ documents = db.ais_cyprus_dynamic.find()
 
 for doc in documents:
     try:
-        formatted_timestamp = datetime.strptime(doc['timestamp'], '%d/%m/%Y %H:%M:%S')
+        formatted_timestamp = datetime.strptime(doc['timestamp'], '%m/%d/%Y %H:%M:%S')
     except ValueError:
         different_format_timestamps.append(doc['timestamp'])
 
