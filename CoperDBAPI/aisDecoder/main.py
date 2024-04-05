@@ -130,6 +130,7 @@ while True:
                         msg = c.poll(1.0)
                     
                         if msg is None:
+                            logging.info(f'msg: {msg}')
                             continue
                         if msg.error():
                             er = msg.error()
