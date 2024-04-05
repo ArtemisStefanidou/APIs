@@ -5,7 +5,7 @@ from pykafka import KafkaClient
 from datetime import datetime
 from pyais import decode
 from pyais.stream import UDPReceiver
-from confluent_kafka import Producer
+from confluent_kafka import Producer, Consumer
 
 # Configure logging
 logging.basicConfig(
@@ -66,7 +66,8 @@ topic_metadata = producer.list_topics()
 topic_list = topic_metadata.topics
 for topic in topic_list:
     logging.info(f'topic: {topic}')
-# topic = 'ais_cyprus_dynamic'
+topic = 'ais_cyprus_dynamic'
+
 
 ais = []
 
@@ -117,10 +118,28 @@ while True:
 
                     # type_data = type(new_data)
                     # logging.info(f'type_data: {new_data}')
-                    # message = json.dumps(new_data)
+                    message = json.dumps(new_data)
                     
-                    # result = producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
-                    # producer.flush()
+                    producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
+                    producer.flush()
+
+                    c = Consumer({'bootstrap.servers': 'kafka1:29092', 'group.id': 'mygroup'})
+                    c.subscribe(['ais_cyprus_dynamic'])
+
+                    while True:
+                        msg = c.poll(1.0)
+                    
+                        if msg is None:
+                            continue
+                        if msg.error():
+                            er = msg.error()
+                            logging.info(f'Error: {er}')
+                            continue
+
+                        value = msg.value().decode('utf-8')
+                        logging.info(f'Received message: {value}')
+                        
+                    logging.info(f'new_data: {new_data}')
 
                     # logging.info(f'result: {result}')
                     mycol_dynamic.insert_one(new_data)
