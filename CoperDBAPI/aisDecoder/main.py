@@ -126,19 +126,8 @@ while True:
                     c = Consumer({'bootstrap.servers': '62.103.245.63:9093', 'group.id': 'trygroup'})
                     c.subscribe(['ais_cyprus_dynamic'])
 
-                    while True:
-                        msg = c.poll(1.0)
-                    
-                        if msg is None:
-                            logging.info(f'msg: {msg}')
-                            continue
-                        if msg.error():
-                            er = msg.error()
-                            logging.info(f'Error: {er}')
-                            continue
-
-                        value = msg.value().decode('utf-8')
-                        logging.info(f'Received message: {value}')
+                    for msg in c:
+                        logging.info(f'msg: {msg}')
                         
                     logging.info(f'new_data: {new_data}')
 
