@@ -289,8 +289,8 @@ while True:
     delta_3h = curr_time - timedelta(hours=3)
     delta_3h = delta_3h + timedelta(seconds=1)
 
-    USERNAME = config.get('Default', 'username')
-    PASSWORD = config.get('Default', 'password')
+    USERNAME = 'wdata3'
+    PASSWORD = 'Wavedata2024!'
 
     logging.info(USERNAME)
 
