@@ -126,6 +126,12 @@ while True:
                     c = Consumer({'bootstrap.servers': '62.103.245.63:9093', 'group.id': 'trygroup'})
                     c.subscribe(['ais_cyprus_dynamic'])
 
+                    logging.info(f'c: {c}')
+
+                    c_len - len(c)
+
+                    logging.info(f'c_len: {c_len}')
+
                     for msg in c:
                         logging.info(f'msg: {msg}')
                         
