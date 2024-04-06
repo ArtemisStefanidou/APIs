@@ -60,7 +60,7 @@ max_lon = 24.643915
 
 # Create the Kafka producer
 producer = Producer({
-    'bootstrap.servers': 'kafka1:9092'
+    'bootstrap.servers': 'kafka1:29092'
 })
 topic_metadata = producer.list_topics()
 topic_list = topic_metadata.topics
@@ -123,7 +123,7 @@ while True:
                     producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
 
-                    c = Consumer({'bootstrap.servers': 'kafka1:9092', 'group.id': 'mygroup'})
+                    c = Consumer({'bootstrap.servers': '62.103.245.63:9093', 'group.id': 'trygroup'})
                     c.subscribe(['ais_cyprus_dynamic'])
 
                     while True:
