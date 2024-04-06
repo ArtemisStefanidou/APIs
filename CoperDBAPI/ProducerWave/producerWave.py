@@ -289,8 +289,8 @@ while True:
     delta_3h = curr_time - timedelta(hours=3)
     delta_3h = delta_3h + timedelta(seconds=1)
 
-    USERNAME = string(config.get('Default', 'username'))
-    PASSWORD = string(config.get('Default', 'password'))
+    USERNAME = config.get('Default', 'username')
+    PASSWORD = config.get('Default', 'password')
 
     logging.info(USERNAME)
 
