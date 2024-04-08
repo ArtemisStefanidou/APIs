@@ -62,10 +62,10 @@ max_lon = 24.643915
 producer = Producer({
     'bootstrap.servers': 'kafka1:29092'
 })
-topic_metadata = producer.list_topics()
-topic_list = topic_metadata.topics
-for topic in topic_list:
-    logging.info(f'topic: {topic}')
+# topic_metadata = producer.list_topics()
+# topic_list = topic_metadata.topics
+# for topic in topic_list:
+#     logging.info(f'topic: {topic}')
 topic = 'ais_cyprus_dynamic'
 
 
