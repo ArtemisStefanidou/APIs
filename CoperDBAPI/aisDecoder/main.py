@@ -123,17 +123,17 @@ while True:
                     producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
 
-                    c = Consumer({'bootstrap.servers': '62.103.245.63:9093', 'group.id': 'trygroup'})
-                    c.subscribe(['ais_cyprus_dynamic'])
+                    # c = Consumer({'bootstrap.servers': '62.103.245.63:9093', 'group.id': 'trygroup'})
+                    # c.subscribe(['ais_cyprus_dynamic'])
 
-                    logging.info(f'c: {c}')
+                    # logging.info(f'c: {c}')
 
-                    c_len - len(c)
+                    # c_len - len(c)
 
-                    logging.info(f'c_len: {c_len}')
+                    # logging.info(f'c_len: {c_len}')
 
-                    for msg in c:
-                        logging.info(f'msg: {msg}')
+                    # for msg in c:
+                    #     logging.info(f'msg: {msg}')
                         
                     logging.info(f'new_data: {new_data}')
 
