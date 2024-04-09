@@ -1,11 +1,10 @@
 import logging
 import json
 import pymongo
-from pykafka import KafkaClient
 from datetime import datetime
 from pyais import decode
 from pyais.stream import UDPReceiver
-from confluent_kafka import Producer, Consumer
+from confluent_kafka import Producer
 
 # Configure logging
 logging.basicConfig(
