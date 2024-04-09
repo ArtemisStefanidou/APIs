@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from bson.json_util import dumps
 
-client = MongoClient("mongodb://mongodb:27017")
+client = MongoClient('localhost', 27017)
 db = client["dock-mongo_mongodb_1"]
 
 
@@ -286,7 +286,7 @@ def init_COPs():
 def init_alerts():
 	alerts = [
 		{
-			"msg_id": "1",
+			"track_id": "1",
 			"message_type": "alert",
 			"threat_name": "Sudden change in SoG",
 			"threat_description": "Sudden change in SOG",
@@ -305,7 +305,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "2",
+			"track_id": "2",
 			"message_type": "alert",
 			"threat_name": "Abrupt change in CoG",
 			"threat_description": "Abrupt change in COG",
@@ -324,7 +324,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "3",
+			"track_id": "3",
 			"message_type": "alert",
 			"threat_name": "Suspicious anchoring",
 			"threat_description": "Suspicious anchoring",
@@ -343,7 +343,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "4",
+			"track_id": "4",
 			"message_type": "alert",
 			"threat_name": "Dark vessel detected",
 			"threat_description": "Dark vessel detected",
@@ -362,7 +362,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "5",
+			"track_id": "5",
 			"message_type": "alert",
 			"threat_name": "Detect a rendezvous of two or more vessels",
 			"threat_description": "Detect a rendezvous of two or more vessels",
@@ -381,7 +381,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "6",
+			"track_id": "6",
 			"message_type": "alert",
 			"threat_name": "Vessel approaching shoreline",
 			"threat_description": "Detected a vessel approaching the shoreline",
@@ -400,7 +400,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "7",
+			"track_id": "7",
 			"message_type": "alert",
 			"threat_name": "Vessel at shore",
 			"threat_description": "Detected a vessel at shore",
@@ -419,7 +419,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "8",
+			"track_id": "8",
 			"message_type": "alert",
 			"threat_name": "People detected on deck",
 			"threat_description": "Detected people on the deck",
@@ -438,7 +438,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "9",
+			"track_id": "9",
 			"message_type": "alert",
 			"threat_name": "People left vessel coming ashore",
 			"threat_description": "Track people coming ashore from the vessel",
@@ -457,7 +457,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "10",
+			"track_id": "10",
 			"message_type": "alert",
 			"threat_name": "Navigational status changed",
 			"threat_description": "Detect change in navigational status",
@@ -491,7 +491,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "11",
+			"track_id": "11",
 			"message_type": "alert",
 			"threat_name": "Check if AIS required",
 			"threat_description": "Check if AIS required",
@@ -520,7 +520,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "12",
+			"track_id": "12",
 			"message_type": "alert",
 			"threat_name": "AIS spoofing detected",
 			"threat_description": "AIS spoofing detected",
@@ -549,7 +549,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "13",
+			"track_id": "13",
 			"message_type": "alert",
 			"threat_name": "Detect vessel entering/leaving area shutting down its AIS",
 			"threat_description": "Detect vessel entering/leaving area shutting down its AIS",
@@ -578,7 +578,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "14",
+			"track_id": "14",
 			"message_type": "alert",
 			"threat_name": "Vessel in distress",
 			"threat_description": "Detect vessel in distress",
@@ -612,7 +612,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "15",
+			"track_id": "15",
 			"message_type": "alert",
 			"threat_name": "Oil spill detected",
 			"threat_description": "Oil spill detected",
@@ -641,7 +641,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "16",
+			"track_id": "16",
 			"message_type": "alert",
 			"threat_name": "Vessel on collision course",
 			"threat_description": "Detect if a vessel is on a collision course with another or with coast",
@@ -660,7 +660,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "17",
+			"track_id": "17",
 			"message_type": "alert",
 			"threat_name": "People split into groups",
 			"threat_description": "Track if the group of people landed from the vessel is divided into two or more groups",
@@ -679,7 +679,7 @@ def init_alerts():
 			]
 		},
 		{
-			"msg_id": "18",
+			"track_id": "18",
 			"message_type": "alert",
 			"threat_name": "People boarded a vehicle",
 			"threat_description": "Detected people walking on foot picked up by a vehicle",
