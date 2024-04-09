@@ -64,7 +64,7 @@ def add_data():
 
         mycol_living.insert_many(data_list)
 
-        producer.produce(topic, value=data_str.encode('utf-8'))
+        producer.produce(topic, value=data_str.encode('utf-8'), callback=delivery_report)
         producer.flush()
         
         return jsonify({'message': 'Data added successfully'})
