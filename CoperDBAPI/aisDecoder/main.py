@@ -74,6 +74,7 @@ def delivery_report(err, msg):
 while True:
     try:
         producer = Producer({'bootstrap.servers': 'kafka1:29092'})
+        logging.info('Message: %s', producer)
         topic_metadata = producer.list_topics()
         topic_list = topic_metadata.topics
         for topic in topic_list:
