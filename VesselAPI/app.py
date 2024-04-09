@@ -5,11 +5,17 @@ from pymongo import MongoClient
 from pymongo import ReturnDocument
 from bson.json_util import dumps
 import json
+# from dotenv import load_dotenv
+
+# load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+# mongo_db_url = os.environ.get("MONGO_DB_CONN_STRING")
+# print(mongo_db_url)
 
-client = MongoClient("mongodb://mongodb:27017")
+client = MongoClient('localhost', 27017)
+
 
 db = client["dock-mongo_mongodb_1"]
 
@@ -43,12 +49,12 @@ def update_steps():
     return resp
 
 # =========================== DSS ===========================
-# msg_id refers to specific alerts while id of COPS refers to the id of the threat types.
+# track_id refers to specific alerts while id of COPS refers to the id of the threat types.
 
 @app.route("/api/rops/", methods=['GET'])
 def get_rops():
-    msg_id = request.args.get('msg_id')
-    filter = { "msg_id": msg_id }
+    track_id = request.args.get('track_id')
+    filter = { "track_id": track_id }
     rops = db["alerts"].find(filter)
     json_resp = dumps(rops)
     data = json.loads(json_resp)
@@ -69,11 +75,11 @@ def get_rops():
 # updates status and recommended steps
 @app.route("/api/update-status-and-rops/", methods=['PUT'])
 def update_rops():
-    msg_id = request.args.get('msg_id')
+    track_id = request.args.get('track_id')
     json_request = request.get_json()
     steps = json_request['steps']
     rec_steps = json_request['rec_steps']
-    filter = { "msg_id": msg_id }
+    filter = { "track_id": track_id }
     update = {"$set":{"steps":steps,"rec_steps":rec_steps}}
     db["alerts"].find_one_and_update(filter,update,upsert=False)
     resp = jsonify(success=True)
