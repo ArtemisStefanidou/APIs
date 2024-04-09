@@ -80,6 +80,8 @@ while True:
         for topic in topic_list:
             logging.info("----------------------------------------------- %s", topic)
         topic = 'living_lab'
+        logging.info('Message: after producer')
+        
         
         for msg in UDPReceiver(host, port):
             # logging.info(f'msg: {msg}')
