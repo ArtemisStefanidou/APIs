@@ -58,11 +58,6 @@ max_lon = 24.643915
 # decoded_s = as_dict['msg_type']
 # logging.info(f'decoded_s: {decoded_s}')
 
-static_topic = 'ais_cyprus_static'
-dynamic_topic = 'ais_cyprus_dynamic'
-
-static_producer = Producer({'bootstrap.servers': 'kafka1:29092'})
-dynamic_producer = Producer({'bootstrap.servers': 'kafka1:29092'})
 # topic_metadata = producer.list_topics()
 # topic_list = topic_metadata.topics
 # for topic in topic_list:
@@ -79,6 +74,12 @@ def delivery_report(err, msg):
 
 while True:
     try:
+        producer = Producer({'bootstrap.servers': 'kafka1:29092'})
+        topic_metadata = producer.list_topics()
+        topic_list = topic_metadata.topics
+        for topic in topic_list:
+            logging.info("----------------------------------------------- %s", topic)
+        topic = 'living_lab'
         
         for msg in UDPReceiver(host, port):
             # logging.info(f'msg: {msg}')
@@ -120,8 +121,8 @@ while True:
                     # logging.info(f'type_data: {new_data}')
                     message = json.dumps(new_data)
                     
-                    dynamic_producer.produce(static_topic, value=json.dumps(new_data).encode('utf-8'), callback=delivery_report)
-                    dynamic_producer.flush()
+                    producer.produce(topic, value=new_data.encode('utf-8'), callback=delivery_report)
+                    producer.flush()
 
                     # c = Consumer({'bootstrap.servers': '62.103.245.63:9093', 'group.id': 'trygroup'})
                     # c.subscribe(['ais_cyprus_dynamic'])
@@ -156,8 +157,8 @@ while True:
     
                     db.ais_cyprus_dynamic.insert_one(new_data)
 
-                    dynamic_producer.produce(static_topic, value=json.dumps(new_data).encode('utf-8'), callback=delivery_report)
-                    dynamic_producer.flush()
+                    producer.produce(topic, value=new_data.encode('utf-8'), callback=delivery_report)
+                    producer.flush()
 
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
@@ -178,8 +179,8 @@ while True:
                     new_data["ais_type"] = message["msg_type"]
     
                     db.ais_cyprus_dynamic.insert_one(new_data)
-                    dynamic_producer.produce(static_topic, value=json.dumps(new_data).encode('utf-8'), callback=delivery_report)
-                    dynamic_producer.flush()
+                    producer.produce(topic, value=new_data.encode('utf-8'), callback=delivery_report)
+                    producer.flush()
 
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
@@ -204,8 +205,8 @@ while True:
                     new_data["ais_type"] = message["msg_type"]
 
                     db.ais_cyprus_static.insert_one(new_data)
-                    static_producer.produce(static_topic, value=json.dumps(new_data).encode('utf-8'), callback=delivery_report)
-                    static_producer.flush()
+                    producer.produce(topic, value=new_data.encode('utf-8'), callback=delivery_report)
+                    producer.flush()
 
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
@@ -230,8 +231,8 @@ while True:
                     
                     db.ais_cyprus_static.insert_one(new_data)
 
-                    static_producer.produce(static_topic, value=json.dumps(new_data).encode('utf-8'), callback=delivery_report)
-                    static_producer.flush()
+                    producer.produce(topic, value=new_data.encode('utf-8'), callback=delivery_report)
+                    producer.flush()
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_static.produce(message_bytes)
@@ -258,8 +259,8 @@ while True:
                     
                     db.ais_cyprus_static.insert_one(new_data)
 
-                    static_producer.produce(static_topic, value=json.dumps(new_data).encode('utf-8'), callback=delivery_report)
-                    static_producer.flush()
+                    producer.produce(topic, value=new_data.encode('utf-8'), callback=delivery_report)
+                    producer.flush()
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_static.produce(message_bytes)
