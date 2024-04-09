@@ -8,12 +8,7 @@ COPY . /main
 WORKDIR /main
 
 # Install any dependencies
-RUN pip install --upgrade pip
-RUN pip install Flask==2.2.2 Flask-PyMongo==2.3.0
-RUN pip install confluent-kafka==2.2.0
-# RUN apk update && \
-#     apk add --no-cache build-base python3-dev py3-numpy && \
-#     pip install --no-cache-dir pandas
+RUN pip install -r requirements.txt
 
 # Specify the Flask environment port
 ENV PORT 5000
