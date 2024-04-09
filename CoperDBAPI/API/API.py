@@ -8,6 +8,7 @@ from pymongo import DESCENDING
 import json
 from bson import json_util
 import re
+from confluent_kafka import Producer
 # from flask_cors import CORS
 # import pandas as pd
 
@@ -37,9 +38,22 @@ mycol_static = db["ais_cyprus_static"]
 mycol_weather = db["weatherData"]
 collection = db['athens_ais']
 
+def delivery_report(err, msg):
+    if err is not None:
+        logging.error('Failed to deliver message: %s', err)
+    else:
+        logging.info('Message delivered to topic: %s', msg.topic())
+
 @app.route('/lab', methods=['POST'])
 def add_data():
     try:
+        producer = Producer({'bootstrap.servers': 'kafka1:29092'})
+        topic_metadata = producer.list_topics()
+        topic_list = topic_metadata.topics
+        for topic in topic_list:
+            logging.info("----------------------------------------------- %s", topic)
+        topic = 'living_lab'
+        
         json_data = request.data
         data_str = json_data.decode('utf-8')
         pattern = r'"id":(\w+)'
@@ -49,6 +63,10 @@ def add_data():
         logging.info(f'data_list: {data_list}')
 
         mycol_living.insert_many(data_list)
+
+        producer.produce(topic, value=data_str.encode('utf-8'))
+        producer.flush()
+        
         return jsonify({'message': 'Data added successfully'})
     except Exception as e:
         logging.info(f'error: {str(e)}')
