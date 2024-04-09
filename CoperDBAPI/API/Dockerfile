@@ -1,5 +1,5 @@
 # Set base image (host OS)
-FROM python:alpine3.8
+FROM python:3.10.12
 
 # Copy the content of the project directory to the working directory
 COPY . /main
@@ -10,8 +10,7 @@ WORKDIR /main
 # Install any dependencies
 RUN pip install --upgrade pip
 RUN pip install Flask==2.2.2 Flask-PyMongo==2.3.0
-RUN apk update && apk add --no-cache build-base python3-dev py3-numpy
-RUN pip install confluent-kafka
+RUN pip install confluent-kafka==2.2.0
 # RUN apk update && \
 #     apk add --no-cache build-base python3-dev py3-numpy && \
 #     pip install --no-cache-dir pandas
