@@ -2,7 +2,7 @@ from pymongo import MongoClient
 from bson.json_util import dumps
 
 client = MongoClient("mongodb://mongodb:27017")
-db = myclient["kafka_db"]
+db = client["kafka_db"]
 # db = client["dock-mongo_mongodb_1"]
 
 
