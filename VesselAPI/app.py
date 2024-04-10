@@ -15,7 +15,7 @@ CORS(app)
 # print(mongo_db_url)
 
 client = MongoClient("mongodb://mongodb:27017")
-db = myclient["kafka_db"]
+db = client["kafka_db"]
 
 # =========================== Manage COPS ===========================
 
