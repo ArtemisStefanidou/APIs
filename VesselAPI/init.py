@@ -1,8 +1,9 @@
 from pymongo import MongoClient
 from bson.json_util import dumps
 
-client = MongoClient('localhost', 27017)
-db = client["dock-mongo_mongodb_1"]
+client = MongoClient("mongodb://mongodb:27017")
+db = myclient["kafka_db"]
+# db = client["dock-mongo_mongodb_1"]
 
 
 def init_COPs():
