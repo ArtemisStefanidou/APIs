@@ -80,7 +80,7 @@ def get_living_lab_data():
         date_max = datetime.strptime(request.args.get("dateMax"), "%Y-%m-%dT%H:%M:%S")
 
         results = mycol_living.find({
-            'timestamp': {
+            'time': {
                 '$gte': date_min.strftime("%d/%m/%Y %H:%M:%S"),
                 '$lte': date_max.strftime("%d/%m/%Y %H:%M:%S")
             }
