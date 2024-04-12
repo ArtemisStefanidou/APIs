@@ -65,7 +65,15 @@ def init_COPs():
 			"steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset"
+					"description": "Call the involved vessels."
+				},
+				{
+					"no": 2,
+					"description": "Send a UAV."
+				},
+				{
+					"no": 3,
+					"description": "Send the coastguard. Activate emergency response teams."
 				}
 			]
 		},
@@ -77,7 +85,15 @@ def init_COPs():
 			"steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset"
+					"description": "Call the vessel"
+				},
+				{
+					"no": 2,
+					"description": "Deploy pilot boats / tug boats"
+				},
+				{
+					"no": 3,
+					"description": "Send the coastguard. Activate emergency response teams."
 				}
 			]
 		},
@@ -89,7 +105,15 @@ def init_COPs():
 			"steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset"
+					"description": "Call the vessel"
+				},
+				{
+					"no": 2,
+					"description": "Send a UAV"
+				},
+				{
+					"no": 3,
+					"description": "Activate port and land emergency response teams (coastguard/police)."
 				}
 			]
 		},
@@ -101,7 +125,19 @@ def init_COPs():
 			"steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset"
+					"description": "Call the vessel"
+				},
+				{
+					"no": 2,
+					"description": "Alert nearby vessels"
+				},
+				{
+					"no": 3,
+					"description": "Deploy pilot boats / tug boats"
+				},
+				{
+					"no": 4,
+					"description": "Send the coastguard. Activate emergency response teams."
 				}
 			]
 		},
@@ -113,7 +149,11 @@ def init_COPs():
 			"steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset"
+					"description": "Send the police. Activate land emergency response teams."
+				},
+				{
+					"no": 2,
+					"description": "Send a UAV."
 				}
 			]
 		},
@@ -371,14 +411,24 @@ def init_alerts():
 			"steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset",
+					"description": "Call the involved vessels.",
+					"status": "Not initialized"
+				},
+				{
+					"no": 2,
+					"description": "Send a UAV.",
+					"status": "Not initialized"
+				},
+				{
+					"no": 3,
+					"description": "Send the coastguard. Activate emergency response teams",
 					"status": "Not initialized"
 				}
 			],
 			"rec_steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset"
+					"description": "Call the involved vessels"
 				}
 			]
 		},
@@ -390,14 +440,24 @@ def init_alerts():
 			"steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset",
+					"description": "Call the vessel",
+					"status": "Not initialized"
+				},
+				{
+					"no": 2,
+					"description": "Deploy pilot boats / tug boats",
+					"status": "Not initialized"
+				},
+				{
+					"no": 3,
+					"description": "Send the coastguard. Activate emergency response teams.",
 					"status": "Not initialized"
 				}
 			],
 			"rec_steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset"
+					"description": "Call the vessel"
 				}
 			]
 		},
@@ -409,14 +469,24 @@ def init_alerts():
 			"steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset",
+					"description": "Call the vessel",
+					"status": "Not initialized"
+				},
+				{
+					"no": 2,
+					"description": "Send a UAV",
+					"status": "Not initialized"
+				},
+				{
+					"no": 3,
+					"description": "Activate port and land emergency response teams (coastguard/police).",
 					"status": "Not initialized"
 				}
 			],
 			"rec_steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset"
+					"description": "Call the vessel"
 				}
 			]
 		},
@@ -428,14 +498,29 @@ def init_alerts():
 			"steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset",
+					"description": "Call the vessel",
+					"status": "Not initialized"
+				},
+				{
+					"no": 2,
+					"description": "Alert nearby vessels",
+					"status": "Not initialized"
+				},
+				{
+					"no": 3,
+					"description": "Deploy pilot boats / tug boats",
+					"status": "Not initialized"
+				},
+				{
+					"no": 4,
+					"description": "Send the coastguard. Activate emergency response teams.",
 					"status": "Not initialized"
 				}
 			],
 			"rec_steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset"
+					"description": "Call the vessel"
 				}
 			]
 		},
@@ -447,14 +532,19 @@ def init_alerts():
 			"steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset",
+					"description": "Send the police. Activate land emergency response teams.",
+					"status": "Not initialized"
+				},
+				{
+					"no": 2,
+					"description": "Send a UAV.",
 					"status": "Not initialized"
 				}
 			],
 			"rec_steps": [
 				{
 					"no": 1,
-					"description": "Deploy a UAV/EURMARS asset"
+					"description": "Send the police. Activate land emergency response teams."
 				}
 			]
 		},
