@@ -158,13 +158,13 @@ while True:
                     new_data["sog"] = message["speed"]
                     new_data["cog"] = message["course"]
                     new_data["ais_type"] = message["msg_type"]
-    
-                    db.ais_cyprus_dynamic.insert_one(new_data)
 
                     message = json.dumps(new_data)
 
                     producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
+
+                    db.ais_cyprus_dynamic.insert_one(new_data)
 
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
@@ -184,10 +184,11 @@ while True:
                     new_data["cog"] = message["course"]
                     new_data["ais_type"] = message["msg_type"]
     
-                    db.ais_cyprus_dynamic.insert_one(new_data)
                     message = json.dumps(new_data)
                     producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
+
+                    db.ais_cyprus_dynamic.insert_one(new_data)
 
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
@@ -211,10 +212,11 @@ while True:
                     new_data["destination"] = message["destination"]
                     new_data["ais_type"] = message["msg_type"]
 
-                    db.ais_cyprus_static.insert_one(new_data)
                     message = json.dumps(new_data)
                     producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
+
+                    db.ais_cyprus_static.insert_one(new_data)
 
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
@@ -237,11 +239,13 @@ while True:
                     new_data["destination"] = None
                     new_data["ais_type"] = message["msg_type"]
                     
-                    db.ais_cyprus_static.insert_one(new_data)
+                    
                     message = json.dumps(new_data)
 
                     producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
+
+                    db.ais_cyprus_static.insert_one(new_data)
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_static.produce(message_bytes)
@@ -266,11 +270,13 @@ while True:
 
                     logging.info(f'new_data: {new_data}')
                     
-                    db.ais_cyprus_static.insert_one(new_data)
+                    
                     message = json.dumps(new_data)
 
                     producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
+
+                    db.ais_cyprus_static.insert_one(new_data)
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_static.produce(message_bytes)
