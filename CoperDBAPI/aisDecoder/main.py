@@ -79,7 +79,8 @@ while True:
         topic_list = topic_metadata.topics
         for topic in topic_list:
             logging.info("----------------------------------------------- %s", topic)
-        topic = 'living_lab'
+        topic = 'ais_cyprus_dynamic'
+        topic_static = 'ais_cyprus_static'
         logging.info('Message: after producer')
         
         
@@ -212,7 +213,7 @@ while True:
 
                     db.ais_cyprus_static.insert_one(new_data)
                     message = json.dumps(new_data)
-                    producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
+                    producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
 
                     # message_json = json.dumps(message)
@@ -239,7 +240,7 @@ while True:
                     db.ais_cyprus_static.insert_one(new_data)
                     message = json.dumps(new_data)
 
-                    producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
+                    producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
@@ -268,7 +269,7 @@ while True:
                     db.ais_cyprus_static.insert_one(new_data)
                     message = json.dumps(new_data)
 
-                    producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
+                    producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
