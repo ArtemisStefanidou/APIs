@@ -46,10 +46,15 @@ different_format_timestamps = []
 host = "0.0.0.0"
 port = 9094
 
-min_lat = 37.440604
-max_lat = 38.511865
-min_lon = 22.806318
-max_lon = 24.643915
+# min_lat = 37.440604
+# max_lat = 38.511865
+# min_lon = 22.806318
+# max_lon = 24.643915
+
+min_lat = 42.031270
+max_lat = 43.891879
+min_lon = 27.028409
+max_lon = 31.667294
 
 # decoded_s = decode("!AIVDM,1,1,,A,137GAh001RR6v3TDS4HDdkb40D4h,0*35")
 # as_dict = decoded_s.asdict()
