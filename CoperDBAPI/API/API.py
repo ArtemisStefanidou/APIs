@@ -374,7 +374,7 @@ def data_info():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-@app.route("/athens", methods=["GET"])
+@app.route("/notcyprus", methods=["GET"])
 def get_athens_data():
     try:
 
