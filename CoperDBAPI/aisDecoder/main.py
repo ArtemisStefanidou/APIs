@@ -24,6 +24,7 @@ db = myclient["kafka_db"]
 mycol_dynamic = db["ais_cyprus_dynamic"]
 mycol_static = db["ais_cyprus_static"]
 athens_ais = db['athens_ais']
+bulgaria = db['bulgaria']
 all_ais = db['all_ais']
 
 different_format_timestamps = []
@@ -151,7 +152,7 @@ while True:
                     mycol_dynamic.insert_one(new_data)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        db.athens_ais.insert_one(new_data)
+                        db.bulgaria.insert_one(new_data)
                     
                 elif message_type in [9]:
 
@@ -176,7 +177,7 @@ while True:
                     # kafka_producer_dynamic.produce(message_bytes)
                     
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        db.athens_ais.insert_one(new_data)
+                        db.bulgaria.insert_one(new_data)
 
                 elif message_type in [18]:
 
@@ -200,7 +201,7 @@ while True:
                     # kafka_producer_dynamic.produce(message_bytes)
                     
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        db.athens_ais.insert_one(new_data)
+                        db.bulgaria.insert_one(new_data)
                         
                 elif message_type == 5:
                     # logging.info(f'as_dict: {message}')
@@ -222,6 +223,9 @@ while True:
                     producer.flush()
 
                     db.ais_cyprus_static.insert_one(new_data)
+
+                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        db.bulgaria.insert_one(new_data)
 
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
@@ -254,7 +258,8 @@ while True:
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_static.produce(message_bytes)
-                    
+                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        db.bulgaria.insert_one(new_data)                    
 
                 elif message_type == 24 and "shipname" in message:
 
@@ -285,7 +290,8 @@ while True:
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_static.produce(message_bytes)
-                    
+                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        db.bulgaria.insert_one(new_data)                    
                
                     
 
