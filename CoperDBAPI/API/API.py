@@ -36,7 +36,7 @@ mycol_living = db['living_lab']
 mycol_dynamic = db["ais_cyprus_dynamic"]
 mycol_static = db["ais_cyprus_static"]
 mycol_weather = db["weatherData"]
-collection = db['athens_ais']
+collection = db['bulgaria']
 
 def delivery_report(err, msg):
     if err is not None:
@@ -374,7 +374,7 @@ def data_info():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-@app.route("/notcyprus", methods=["GET"])
+@app.route("/bulgaria", methods=["GET"])
 def get_athens_data():
     try:
 
