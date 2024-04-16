@@ -234,17 +234,17 @@ while True:
 
                     message = json.dumps(new_data)
 
-                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
-                        producer.flush()
-                        db.bulgaria_static.insert_one(new_data)
+                    # if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                    #     producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
+                    #     producer.flush()
+                    #     db.bulgaria_static.insert_one(new_data)
 
-                    else:
+                    # else:
 
-                        producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
-                        producer.flush()
+                    producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
+                    producer.flush()
     
-                        db.ais_cyprus_static.insert_one(new_data)
+                    db.ais_cyprus_static.insert_one(new_data)
 
 
                 elif message_type == 24 and "ship_type" in message:
@@ -267,16 +267,16 @@ while True:
                     
                     message = json.dumps(new_data)
 
-                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
-                        producer.flush()
-                        db.bulgaria_static.insert_one(new_data)
-                    else:
+                    # if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                    #     producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
+                    #     producer.flush()
+                    #     db.bulgaria_static.insert_one(new_data)
+                    # else:
 
-                        producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
-                        producer.flush()
+                    producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
+                    producer.flush()
     
-                        db.ais_cyprus_static.insert_one(new_data)
+                    db.ais_cyprus_static.insert_one(new_data)
                   
 
                 elif message_type == 24 and "shipname" in message:
@@ -301,16 +301,16 @@ while True:
                     
                     message = json.dumps(new_data)
 
-                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
-                        producer.flush()
-                        db.bulgaria_static.insert_one(new_data)
-                    else:
+                    # if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                    #     producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
+                    #     producer.flush()
+                    #     db.bulgaria_static.insert_one(new_data)
+                    # else:
 
-                        producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
-                        producer.flush()
+                    producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
+                    producer.flush()
     
-                        db.ais_cyprus_static.insert_one(new_data)                  
+                    db.ais_cyprus_static.insert_one(new_data)                  
                
                     
 
