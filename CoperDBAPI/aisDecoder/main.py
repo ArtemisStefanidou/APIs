@@ -29,6 +29,24 @@ bulgaria_dynamic = db['bulgaria_dynamic']
 bulgaria_static = db['bulgaria_static']
 all_ais = db['all_ais']
 
+db_source = db['ais_cyprus_dynamic']
+db_destination = db['sample_dynamic_cyprus']
+
+date_min = "08/04/2024 00:00:00"
+date_max = "15/04/2024 00:00:00"
+date_min = datetime.strptime(date_min, "%d/%m/%Y %H:%M:%S")
+date_max = datetime.strptime(date_max, "%d/%m/%Y %H:%M:%S")
+
+results = db_source.find({
+    'timestamp': {
+        '$gte': date_min,
+        '$lte': date_max
+    }
+}).sort('time', DESCENDING)
+
+for document in source_data:
+    db_destination['sample_dynamic_cyprus'].insert_one(document)
+
 different_format_timestamps = []
 
 # documents = db.ais_cyprus_dynamic.find()
