@@ -84,7 +84,7 @@ def get_living_lab_data():
                 '$gte': date_min.strftime("%d/%m/%Y %H:%M:%S"),
                 '$lte': date_max.strftime("%d/%m/%Y %H:%M:%S")
             }
-        })
+        }).sort('time', DESCENDING)
 
         data_list = list(results)
         logging.info(f'data_list: {data_list}')
