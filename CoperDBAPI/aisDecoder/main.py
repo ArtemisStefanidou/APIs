@@ -45,7 +45,7 @@ results = db_source.find({
     }
 }).sort('time', DESCENDING)
 
-for document in source_data:
+for document in results:
     db_destination['sample_dynamic_cyprus'].insert_one(document)
 
 different_format_timestamps = []
