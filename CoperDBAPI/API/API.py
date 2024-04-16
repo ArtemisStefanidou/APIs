@@ -56,16 +56,18 @@ def add_data():
         
         json_data = request.data
         data_str = json_data.decode('utf-8')
+
         pattern = r'"id":(\w+)'
         data_with_quotes = re.sub(pattern, lambda x: f'"id":"{x.group(1)}"', data_str)
-        # data_with_quotes = json_data.replace(b'ID', b'"ID"')
+
         data_list = json.loads(data_with_quotes)
         logging.info(f'data_list: {data_list}')
 
-        mycol_living.insert_many(data_list)
-
-        producer.produce(topic, value=data_str.encode('utf-8'), callback=delivery_report)
-        producer.flush()
+        for data_item in data_list:
+            mycol_living.insert_one(data_item)
+            message_str = json.dumps(data_item)
+            producer.produce(topic, value=message_str.encode('utf-8'), callback=delivery_report)
+            producer.flush()
         
         return jsonify({'message': 'Data added successfully'})
     except Exception as e:
