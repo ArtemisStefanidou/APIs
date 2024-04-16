@@ -138,7 +138,7 @@ while True:
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
                         producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
                         producer.flush()
-                        db.bulgaria_dynamic.insert_one(new_data)
+                        db.bulgaria.insert_one(new_data)
                     else:
                     
                         producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
@@ -179,7 +179,7 @@ while True:
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
                         producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
                         producer.flush()
-                        db.bulgaria_dynamic.insert_one(new_data)
+                        db.bulgaria.insert_one(new_data)
                     else:
 
                         producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
@@ -208,7 +208,7 @@ while True:
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
                         producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
                         producer.flush()
-                        db.bulgaria_dynamic.insert_one(new_data)
+                        db.bulgaria.insert_one(new_data)
                         
                     else:
                         producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
