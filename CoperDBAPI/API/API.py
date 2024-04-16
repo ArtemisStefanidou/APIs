@@ -64,10 +64,10 @@ def add_data():
         logging.info(f'data_list: {data_list}')
 
         for data_item in data_list:
-            mycol_living.insert_one(data_item)
             message_str = json.dumps(data_item)
             producer.produce(topic, value=message_str.encode('utf-8'), callback=delivery_report)
             producer.flush()
+            mycol_living.insert_one(data_item)
         
         return jsonify({'message': 'Data added successfully'})
     except Exception as e:
