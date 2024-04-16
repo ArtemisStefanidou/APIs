@@ -25,6 +25,8 @@ mycol_dynamic = db["ais_cyprus_dynamic"]
 mycol_static = db["ais_cyprus_static"]
 athens_ais = db['athens_ais']
 bulgaria = db['bulgaria']
+bulgaria_dynamic = db['bulgaria_dynamic']
+bulgaria_static = db['bulgaria_static']
 all_ais = db['all_ais']
 
 different_format_timestamps = []
@@ -87,6 +89,8 @@ while True:
             logging.info("----------------------------------------------- %s", topic)
         topic = 'ais_cyprus_dynamic'
         topic_static = 'ais_cyprus_static'
+        topic_bulgaria = 'ais_bulgaria_dynamic'
+        topic_static_bulgaria = 'ais_bulgaria_static'
         logging.info('Message: after producer')
         
         
@@ -130,29 +134,34 @@ while True:
                     # type_data = type(new_data)
                     # logging.info(f'type_data: {new_data}')
                     message = json.dumps(new_data)
-                    
-                    producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
-                    producer.flush()
-
-                    # c = Consumer({'bootstrap.servers': '62.103.245.63:9093', 'group.id': 'trygroup'})
-                    # c.subscribe(['ais_cyprus_dynamic'])
-
-                    # logging.info(f'c: {c}')
-
-                    # c_len - len(c)
-
-                    # logging.info(f'c_len: {c_len}')
-
-                    # for msg in c:
-                    #     logging.info(f'msg: {msg}')
-                        
-                    logging.info(f'new_data: {new_data}')
-
-                    # logging.info(f'result: {result}')
-                    mycol_dynamic.insert_one(new_data)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        db.bulgaria.insert_one(new_data)
+                        producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+                        db.bulgaria_dynamic.insert_one(new_data)
+                    else:
+                    
+                        producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+    
+                        # c = Consumer({'bootstrap.servers': '62.103.245.63:9093', 'group.id': 'trygroup'})
+                        # c.subscribe(['ais_cyprus_dynamic'])
+    
+                        # logging.info(f'c: {c}')
+    
+                        # c_len - len(c)
+    
+                        # logging.info(f'c_len: {c_len}')
+    
+                        # for msg in c:
+                        #     logging.info(f'msg: {msg}')
+                            
+                        logging.info(f'new_data: {new_data}')
+    
+                        # logging.info(f'result: {result}')
+                        mycol_dynamic.insert_one(new_data)
+
+
                     
                 elif message_type in [9]:
 
@@ -166,18 +175,22 @@ while True:
                     new_data["ais_type"] = message["msg_type"]
 
                     message = json.dumps(new_data)
+                    
+                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+                        db.bulgaria_dynamic.insert_one(new_data)
+                    else:
 
-                    producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
-                    producer.flush()
-
-                    db.ais_cyprus_dynamic.insert_one(new_data)
+                        producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+    
+                        db.ais_cyprus_dynamic.insert_one(new_data)
 
                     # message_json = json.dumps(message)
                     # message_bytes = message_json.encode('utf-8')
                     # kafka_producer_dynamic.produce(message_bytes)
                     
-                    if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        db.bulgaria.insert_one(new_data)
 
                 elif message_type in [18]:
 
@@ -191,17 +204,18 @@ while True:
                     new_data["ais_type"] = message["msg_type"]
     
                     message = json.dumps(new_data)
-                    producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
-                    producer.flush()
 
-                    db.ais_cyprus_dynamic.insert_one(new_data)
-
-                    # message_json = json.dumps(message)
-                    # message_bytes = message_json.encode('utf-8')
-                    # kafka_producer_dynamic.produce(message_bytes)
-                    
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        db.bulgaria.insert_one(new_data)
+                        producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+                        db.bulgaria_dynamic.insert_one(new_data)
+                        
+                    else:
+                        producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+    
+                        db.ais_cyprus_dynamic.insert_one(new_data)
+
                         
                 elif message_type == 5:
                     # logging.info(f'as_dict: {message}')
@@ -219,17 +233,19 @@ while True:
                     new_data["ais_type"] = message["msg_type"]
 
                     message = json.dumps(new_data)
-                    producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
-                    producer.flush()
-
-                    db.ais_cyprus_static.insert_one(new_data)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        db.bulgaria.insert_one(new_data)
+                        producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+                        db.bulgaria_static.insert_one(new_data)
 
-                    # message_json = json.dumps(message)
-                    # message_bytes = message_json.encode('utf-8')
-                    # kafka_producer_static.produce(message_bytes)
+                    else:
+
+                        producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+    
+                        db.ais_cyprus_static.insert_one(new_data)
+
 
                 elif message_type == 24 and "ship_type" in message:
 
@@ -251,15 +267,17 @@ while True:
                     
                     message = json.dumps(new_data)
 
-                    producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
-                    producer.flush()
-
-                    db.ais_cyprus_static.insert_one(new_data)
-                    # message_json = json.dumps(message)
-                    # message_bytes = message_json.encode('utf-8')
-                    # kafka_producer_static.produce(message_bytes)
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        db.bulgaria.insert_one(new_data)                    
+                        producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+                        db.bulgaria_static.insert_one(new_data)
+                    else:
+
+                        producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+    
+                        db.ais_cyprus_static.insert_one(new_data)
+                  
 
                 elif message_type == 24 and "shipname" in message:
 
@@ -283,15 +301,16 @@ while True:
                     
                     message = json.dumps(new_data)
 
-                    producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
-                    producer.flush()
-
-                    db.ais_cyprus_static.insert_one(new_data)
-                    # message_json = json.dumps(message)
-                    # message_bytes = message_json.encode('utf-8')
-                    # kafka_producer_static.produce(message_bytes)
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        db.bulgaria.insert_one(new_data)                    
+                        producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+                        db.bulgaria_static.insert_one(new_data)
+                    else:
+
+                        producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
+                        producer.flush()
+    
+                        db.ais_cyprus_static.insert_one(new_data)                  
                
                     
 
