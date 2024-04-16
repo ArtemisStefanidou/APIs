@@ -136,6 +136,7 @@ while True:
                     message = json.dumps(new_data)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        logging.info("---------------------Bulgaria--------------------------")
                         producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
                         producer.flush()
                         db.bulgaria.insert_one(new_data)
@@ -177,6 +178,7 @@ while True:
                     message = json.dumps(new_data)
                     
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        logging.info("---------------------Bulgaria--------------------------")
                         producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
                         producer.flush()
                         db.bulgaria.insert_one(new_data)
@@ -206,6 +208,7 @@ while True:
                     message = json.dumps(new_data)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
+                        logging.info("---------------------Bulgaria--------------------------")
                         producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
                         producer.flush()
                         db.bulgaria.insert_one(new_data)
