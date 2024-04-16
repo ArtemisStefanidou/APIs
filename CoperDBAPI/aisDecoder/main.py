@@ -5,6 +5,7 @@ from datetime import datetime
 from pyais import decode
 from pyais.stream import UDPReceiver
 from confluent_kafka import Producer
+from pymongo import DESCENDING
 
 # Configure logging
 logging.basicConfig(
