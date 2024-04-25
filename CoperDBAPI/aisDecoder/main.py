@@ -23,7 +23,7 @@ logging.getLogger("").addHandler(console)
 myclient = pymongo.MongoClient("mongodb://mongodb:27017")
 db = myclient["kafka_db"]
 mycol_dynamic = db["ais_cyprus_dynamic"]
-mycol_static = db["ais_cyprus_static"]
+mycol_static = db["ais_static"]
 athens_ais = db['athens_ais']
 bulgaria = db['bulgaria']
 bulgaria_dynamic = db['bulgaria_dynamic']
@@ -105,7 +105,7 @@ while True:
         for topic in topic_list:
             logging.info("----------------------------------------------- %s", topic)
         topic = 'ais_cyprus_dynamic'
-        topic_static = 'ais_cyprus_static'
+        topic_static = 'ais_static'
         topic_bulgaria = 'ais_bulgaria_dynamic'
         topic_static_bulgaria = 'ais_bulgaria_static'
         logging.info('Message: after producer')
