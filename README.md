@@ -882,3 +882,6 @@ For dynamic
 ```
 
 ### APP
+
+In private repo
+`https://github.com/ArtemisStefanidou/Android_AIS.git`
