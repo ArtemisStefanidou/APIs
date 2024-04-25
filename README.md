@@ -1,6 +1,6 @@
 # CoperDBAPI
 
-![CoperDBAPI](https://github.com/ArtemisStefanidou/APIs/blob/main/photos/Screenshot%202023-07-24%20at%203.33.34%20PM.png)
+![CoperDBAPI](https://github.com/ArtemisStefanidou/APIs/blob/main/photos/Framework.png)
 
 - [CoperDBAPI](#coperdbapi)
     - [Example Usage](#example-usage)
