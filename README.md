@@ -563,7 +563,7 @@ http://localhost:5000/data?dateMin=2024-03-12T00:00:00&dateMax=2024-03-12T22:00:
     }
 ]
 ```
-![Sublime's custom image](https://github.com/ArtemisStefanidou/APIs/blob/main/photos/Screenshot%202023-07-24%20at%205.32.18%20PM.png)
+![Sublime's custom image](https://github.com/ArtemisStefanidou/APIs/blob/main/photos/Docker.png)
 
 ### ProducerWave
 
