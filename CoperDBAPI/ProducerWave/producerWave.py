@@ -259,6 +259,7 @@ while True:
     mycol = db["waveData"]
 
     logging.info('emptyBefore')
+    init_WaveData(mycol)
 
     if mycol.count_documents({}) == 0:
       init_WaveData(mycol)
