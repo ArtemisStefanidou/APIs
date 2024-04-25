@@ -95,27 +95,6 @@ def get_living_lab_data():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-@app.route('/test', methods=['GET'])
-def test():
-    try:
-        results = mycol_wave.find()
-
-        data_list = list(results)
-        logging.info(f'data_list: {data_list}')
-        json_data = json.loads(json_util.dumps(data_list))
-        return jsonify(json_data)
-    except Exception as e:
-        return jsonify({'error': str(e)})
-# def create_square(latitude, longitude, radius):
-  
-#     radius_in_degrees = radius / 111.00
-#     min_latitude = latitude - radius_in_degrees
-#     max_latitude = latitude + radius_in_degrees
-#     min_longitude = longitude - radius_in_degrees
-#     max_longitude = longitude + radius_in_degrees
-
-#     return min_latitude, min_longitude, max_latitude, max_longitude
-
 def create_square(lat1, lon1, distance_km):
     R = 6371.0  # Radius of the Earth in kilometers
 
@@ -174,24 +153,6 @@ def search_data(
     database,
 ):
     query = {}
-    # sort_order = [("time", DESCENDING)]
-    # limit = 1
-    # result = database.find(query).sort(sort_order).limit(limit)
-    # date_format = "%Y-%m-%d %H:%M:%S"
-    # most_recent_date = [
-    #     datetime.strptime(document["time"], date_format) for document in result
-    # ]
-
-    # if min(most_recent_date) > end_date or max(most_recent_date) < start_date:
-    #     return {database.name: []}
-    # else:
-            
-    # start_date_str = start_date.strftime("%Y-%m-%d %H:%M:%S")
-    # end_date_str = end_date.strftime("%Y-%m-%d %H:%M:%S")
-    # start_timestamp = start_date.timestamp()
-    # end_timestamp = end_date.timestamp()
-    logging.info(f'start time: {start_date}')
-    logging.info(f'end: {end_date}')
             
     query = {
             "time": {"$gte": start_date, "$lte": end_date},
@@ -199,12 +160,9 @@ def search_data(
             "latitude": {"$gte": min_latitude, "$lte": max_latitude},
     }
 
-    logging.info(f'query: {query}')
     last_data = database.find(query)
 
     if not last_data:
-            logging.info('times: 1 ----------------------------------------------')
-            #logging.info(f'last_data: {list(last_data)}')
             return {database.name: []}
     else:
             data_list = []
@@ -213,7 +171,6 @@ def search_data(
             for data in data_list:
                 data.pop("_id", None)
                 data['time'] = data['time'].strftime("%d/%m/%Y %H:%M:%S")
-                logging.info(f'datalist : {data}')
             if database == mycol_weather:
                 logging.info(f'times: 1 ---------------------------------------------- : {data_list}')
             return {database.name: data_list}
@@ -250,54 +207,12 @@ def get_data():
     ]
     return jsonify(info_return)
 
-
-@app.route("/status12", methods=["GET"])
-def get_status():
-    api_is_up = True
-
-    if api_is_up:
-        response = {"status": "success"}
-    else:
-        response = {"status": "fail"}
-
-    return jsonify(response)
-
-@app.route("/ais_cyprus_dynamic_all", methods=["GET"])
-def get_ais_cyprus_dynamic_all():
-    try:
-        numData = request.args.get("numData")
-        numData = int(numData)
-        numData_tmp = numData - 500
-        results = mycol_dynamic.find().skip(numData_tmp).limit(numData)
-        data_list = list(results)
-        json_data = json.loads(json_util.dumps(data_list))
-        return jsonify(json_data)
-    except Exception as e:
-        return jsonify({'error': str(e)})
-
-
-# @app.route("/ais_cyprus_static_all", methods=["GET"])
-# def get_ais_cyprus_static_all():
-#     try:
-#         results = mycol_static.find()
-#         data_list = list(results)
-#         json_data = json.loads(json_util.dumps(data_list))
-
-#         df = pd.DataFrame(json_data)
-
-#         df.to_csv('weather_data.csv', index=False)
-
-#         return 'CSV file successfully created!'
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
         
 @app.route("/ais_cyprus_dynamic", methods=["GET"])
 def get_ais_cyprus_dynamic():
     try:
         date_min = datetime.strptime(request.args.get("dateMin"), "%Y-%m-%dT%H:%M:%S")
         date_max = datetime.strptime(request.args.get("dateMax"), "%Y-%m-%dT%H:%M:%S")
-
-        logging.info(f'date_max: {date_max}')
         
         if date_max - date_min > timedelta(hours=2):
             date_min = date_max - timedelta(hours=2)
@@ -321,8 +236,6 @@ def get_ais_static():
     try:
         date_min = datetime.strptime(request.args.get("dateMin"), "%Y-%m-%dT%H:%M:%S")
         date_max = datetime.strptime(request.args.get("dateMax"), "%Y-%m-%dT%H:%M:%S")
-
-        logging.info(f'date_max: {date_max}')
         
         if date_max - date_min > timedelta(hours=2):
             date_min = date_max - timedelta(hours=2)
@@ -381,7 +294,6 @@ def get_athens_data():
     try:
 
         last_10_documents = collection.find()
-        # .sort([('_id', -1)]).limit(10)
 
         data_list = list(last_10_documents)
         logging.info(f'data_list: {data_list}')
