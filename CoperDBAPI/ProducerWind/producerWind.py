@@ -564,6 +564,7 @@ mycolweather.drop()
 while True:
     try:
         logging.info('emptyBefore')
+        init_WeatherData(mycolweather)
 
         if mycol.count_documents({}) == 0:
           init_WindData(mycol)
