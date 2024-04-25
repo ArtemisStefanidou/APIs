@@ -34,7 +34,7 @@ mycol_wave = db["waveData"]
 mycol_wind = db["windData"]
 mycol_living = db['living_lab']
 mycol_dynamic = db["ais_cyprus_dynamic"]
-mycol_static = db["ais_static"]
+mycol_static = db["ais_cyprus_static"]
 mycol_weather = db["weatherData"]
 collection = db['bulgaria']
 
