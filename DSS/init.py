@@ -4,7 +4,6 @@ from bson.json_util import dumps
 client = MongoClient("mongodb://mongodb:27017")
 db = client["kafka_db"]
 client.drop_database("dock-mongo_mongodb_1")
-# db = client["dock-mongo_mongodb_1"]
 
 
 def init_COPs():
