@@ -740,7 +740,7 @@ If not, an empty list is returned.
 
 The AIS data we receive is divided into two categories: static, which includes messages of type 24 and 5, and dynamic, which includes types 1, 2, 3, and 18. These data are stored in the respective Kafka topics and collections in our database: ais_cyprus_dynamic for dynamic data and ais_cyprus_static for static data.
 
-`GET /ais_cyprus_static?dateMin=2024-01-31T00:00:00&dateMax=2024-01-31T14:00:00`
+`GET /ais_static?dateMin=2024-04-25T10:04:08&dateMax=2024-04-25T12:04:08`
 
 `GET /ais_cyprus_dynamic?dateMin=2024-01-31T00:00:00&dateMax=2024-01-31T14:00:00`
 
@@ -756,76 +756,77 @@ For static
 [
     {
         "_id": {
-            "$oid": "65ba3aad5ee1c64a559eb045"
-        },
-        "ais_type": 24,
-        "bow": 18,
-        "call_sign": "T8A3886",
-        "destination": null,
-        "draught": null,
-        "imo": null,
-        "mmsi": 511100697,
-        "port": 4,
-        "ship_name": null,
-        "ship_type": 37,
-        "starboard": 3,
-        "stern": 10,
-        "timestamp": "31/01/2024 12:18:53"
-    },
-    {
-        "_id": {
-            "$oid": "65ba3ab15ee1c64a559eb054"
-        },
-        "ais_type": 24,
-        "bow": 9,
-        "call_sign": "MNDX2",
-        "destination": null,
-        "draught": null,
-        "imo": null,
-        "mmsi": 232046175,
-        "port": 5,
-        "ship_name": null,
-        "ship_type": 36,
-        "starboard": 4,
-        "stern": 8,
-        "timestamp": "31/01/2024 12:18:57"
-    },
-    {
-        "_id": {
-            "$oid": "65ba3ab85ee1c64a559eb070"
-        },
-        "ais_type": 5,
-        "bow": 151,
-        "call_sign": "A8PW3",
-        "destination": "FOR ORDERS",
-        "draught": 7.0,
-        "imo": 9396335,
-        "mmsi": 636013848,
-        "port": 16,
-        "ship_name": "HISTRIA TIGER",
-        "ship_type": 80,
-        "starboard": 16,
-        "stern": 29,
-        "timestamp": "31/01/2024 12:19:04"
-    },
-    {
-        "_id": {
-            "$oid": "65ba3ab85ee1c64a559eb071"
+            "$oid": "662a2a994da5c77d915f3db5"
         },
         "ais_type": 24,
         "bow": 20,
-        "call_sign": "21VD5",
+        "call_sign": "P3AY8",
         "destination": null,
         "draught": null,
         "imo": null,
-        "mmsi": 235113056,
-        "port": 3,
+        "mmsi": 212983012,
+        "port": 4,
+        "ship_name": null,
+        "ship_type": 60,
+        "starboard": 4,
+        "stern": 4,
+        "timestamp": "25/04/2024 10:04:09"
+    },
+    {
+        "_id": {
+            "$oid": "662a2a9b4da5c77d915f3dc5"
+        },
+        "ais_type": 24,
+        "bow": 15,
+        "call_sign": "MCTA7",
+        "destination": null,
+        "draught": null,
+        "imo": null,
+        "mmsi": 232014380,
+        "port": 4,
+        "ship_name": null,
+        "ship_type": 36,
+        "starboard": 0,
+        "stern": 0,
+        "timestamp": "25/04/2024 10:04:11"
+    },
+    {
+        "_id": {
+            "$oid": "662a2a9f4da5c77d915f3df4"
+        },
+        "ais_type": 24,
+        "bow": null,
+        "call_sign": null,
+        "destination": null,
+        "draught": null,
+        "imo": null,
+        "mmsi": 232050147,
+        "port": null,
+        "ship_name": "LADY LUCK 2",
+        "ship_type": null,
+        "starboard": null,
+        "stern": null,
+        "timestamp": "25/04/2024 10:04:15"
+    },
+    {
+        "_id": {
+            "$oid": "662a2aa04da5c77d915f3df9"
+        },
+        "ais_type": 24,
+        "bow": 6,
+        "call_sign": "METI3",
+        "destination": null,
+        "draught": null,
+        "imo": null,
+        "mmsi": 232020668,
+        "port": 2,
         "ship_name": null,
         "ship_type": 37,
         "starboard": 2,
-        "stern": 3,
-        "timestamp": "31/01/2024 12:19:04"
+        "stern": 5,
+        "timestamp": "25/04/2024 10:04:16"
     }
+...
 ]
 ```
 
