@@ -23,15 +23,12 @@ logging.getLogger("").addHandler(console)
 myclient = pymongo.MongoClient("mongodb://mongodb:27017")
 db = myclient["kafka_db"]
 mycol_dynamic = db["ais_cyprus_dynamic"]
-mycol_static = db["ais_static"]
+mycol_static = db["ais_cyprus_static"]
 athens_ais = db['athens_ais']
 bulgaria = db['bulgaria']
 bulgaria_dynamic = db['bulgaria_dynamic']
 bulgaria_static = db['bulgaria_static']
 all_ais = db['all_ais']
-
-# db_source = db['ais_cyprus_dynamic']
-# db_destination = db['sample_dynamic_cyprus']
 
 date_min = datetime.strptime("08/04/2024 00:00:00", "%d/%m/%Y %H:%M:%S")
 date_max = datetime.strptime("15/04/2024 00:00:00", "%d/%m/%Y %H:%M:%S")
@@ -48,24 +45,10 @@ for document in results:
 
 different_format_timestamps = []
 
-# documents = db.ais_cyprus_dynamic.find()
-
-# for doc in documents:
-#     try:
-#         formatted_timestamp = datetime.strptime(doc['timestamp'], '%m/%d/%Y %H:%M:%S')
-#     except ValueError:
-#         different_format_timestamps.append(doc['timestamp'])
-
-# for timestamp in different_format_timestamps:
-#     logging.info(f'timestamp: {timestamp}')
-
-# kafka_client = KafkaClient(hosts='kafka1:29092')
-# kafka_producer_dynamic = kafka_client.topics[b'ais_cyprus_dynamic'].get_producer()
-# kafka_producer_static = kafka_client.topics[b'ais_cyprus_static'].get_producer()
-
 host = "0.0.0.0"
 port = 9094
 
+#for Athens if we want it again
 # min_lat = 37.440604
 # max_lat = 38.511865
 # min_lon = 22.806318
@@ -75,18 +58,6 @@ min_lat = 42.031270
 max_lat = 43.891879
 min_lon = 27.028409
 max_lon = 31.667294
-
-# decoded_s = decode("!AIVDM,1,1,,A,137GAh001RR6v3TDS4HDdkb40D4h,0*35")
-# as_dict = decoded_s.asdict()
-# logging.info(f'as_dict: {as_dict}')
-# decoded_s = as_dict['msg_type']
-# logging.info(f'decoded_s: {decoded_s}')
-
-# topic_metadata = producer.list_topics()
-# topic_list = topic_metadata.topics
-# for topic in topic_list:
-#     logging.info(f'topic: {topic}')
-
 
 ais = []
 
@@ -99,7 +70,6 @@ def delivery_report(err, msg):
 while True:
     try:
         producer = Producer({'bootstrap.servers': 'kafka1:29092'})
-        logging.info('Message: %s', producer)
         topic_metadata = producer.list_topics()
         topic_list = topic_metadata.topics
         for topic in topic_list:
@@ -107,37 +77,22 @@ while True:
         topic = 'ais_cyprus_dynamic'
         topic_static = 'ais_static'
         topic_bulgaria = 'ais_bulgaria_dynamic'
-        topic_static_bulgaria = 'ais_bulgaria_static'
-        logging.info('Message: after producer')
-        
         
         for msg in UDPReceiver(host, port):
-            logging.info('Message: inside for')
-            # logging.info(f'msg: {msg}')
+
             decoded_b = msg.decode()
-            # logging.info(f'decoded_s: {decoded_s}')
-            # decoded_b = decode(msg)
             message = decoded_b.asdict()
             ais = message
-            # logging.info(f'as_dict: {message}')
-            # message = msg.decode()
-            # logging.info(f'message: {decoded_b}')
             
             if message is not None:
                 message_type = message['msg_type']
-                # logging.info(f'message: {message}')
-                
-                # logging.info(f'message: {message_decoded}')
-                
                 current_utc_time = datetime.utcnow()
                 formatted_time = current_utc_time.strftime("%d/%m/%Y %H:%M:%S")
 
                 new_data = {}
                 new_data["timestamp"] = formatted_time
-                # logging.info(f'formatted_time: {formatted_time}')
                 
                 if message_type in [1, 2, 3]:
-                    # logging.info(f'new_data: {new_data}')
 
                     new_data["mmsi"] = message["mmsi"]
                     new_data["nav_status"] = message["status"]
@@ -148,12 +103,9 @@ while True:
                     new_data["cog"] = message["course"]
                     new_data["ais_type"] = message["msg_type"]
 
-                    # type_data = type(new_data)
-                    # logging.info(f'type_data: {new_data}')
                     message = json.dumps(new_data)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        logging.info("---------------------Bulgaria--------------------------")
                         producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
                         producer.flush()
                         db.bulgaria.insert_one(new_data)
@@ -161,22 +113,9 @@ while True:
                     
                         producer.produce(topic, value=message.encode('utf-8'), callback=delivery_report)
                         producer.flush()
-    
-                        # c = Consumer({'bootstrap.servers': '62.103.245.63:9093', 'group.id': 'trygroup'})
-                        # c.subscribe(['ais_cyprus_dynamic'])
-    
-                        # logging.info(f'c: {c}')
-    
-                        # c_len - len(c)
-    
-                        # logging.info(f'c_len: {c_len}')
-    
-                        # for msg in c:
-                        #     logging.info(f'msg: {msg}')
                             
                         logging.info(f'new_data: {new_data}')
-    
-                        # logging.info(f'result: {result}')
+
                         mycol_dynamic.insert_one(new_data)
 
 
@@ -195,7 +134,6 @@ while True:
                     message = json.dumps(new_data)
                     
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        logging.info("---------------------Bulgaria--------------------------")
                         producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
                         producer.flush()
                         db.bulgaria.insert_one(new_data)
@@ -205,10 +143,6 @@ while True:
                         producer.flush()
     
                         db.ais_cyprus_dynamic.insert_one(new_data)
-
-                    # message_json = json.dumps(message)
-                    # message_bytes = message_json.encode('utf-8')
-                    # kafka_producer_dynamic.produce(message_bytes)
                     
 
                 elif message_type in [18]:
@@ -225,7 +159,6 @@ while True:
                     message = json.dumps(new_data)
 
                     if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                        logging.info("---------------------Bulgaria--------------------------")
                         producer.produce(topic_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
                         producer.flush()
                         db.bulgaria.insert_one(new_data)
@@ -238,7 +171,6 @@ while True:
 
                         
                 elif message_type == 5:
-                    # logging.info(f'as_dict: {message}')
                     new_data["mmsi"] = message["mmsi"]
                     new_data["imo"] = message["imo"]
                     new_data["ship_name"] = message["shipname"]
@@ -254,13 +186,6 @@ while True:
 
                     message = json.dumps(new_data)
 
-                    # if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                    #     producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
-                    #     producer.flush()
-                    #     db.bulgaria_static.insert_one(new_data)
-
-                    # else:
-
                     producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
     
@@ -268,8 +193,6 @@ while True:
 
 
                 elif message_type == 24 and "ship_type" in message:
-
-                    # logging.info(f'message: {message}')
 
                     new_data["mmsi"] = message["mmsi"]
                     new_data["imo"] = None
@@ -287,12 +210,6 @@ while True:
                     
                     message = json.dumps(new_data)
 
-                    # if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                    #     producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
-                    #     producer.flush()
-                    #     db.bulgaria_static.insert_one(new_data)
-                    # else:
-
                     producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
     
@@ -300,8 +217,6 @@ while True:
                   
 
                 elif message_type == 24 and "shipname" in message:
-
-                    
 
                     new_data["mmsi"] = message["mmsi"]
                     new_data["imo"] = None
@@ -315,17 +230,8 @@ while True:
                     new_data["starboard"] = None
                     new_data["destination"] = None
                     new_data["ais_type"] = message["msg_type"]
-
-                    logging.info(f'new_data: {new_data}')
-                    
                     
                     message = json.dumps(new_data)
-
-                    # if min_lat <= new_data["latitude"] <= max_lat and min_lon <= new_data["longitude"] <= max_lon:
-                    #     producer.produce(topic_static_bulgaria, value=message.encode('utf-8'), callback=delivery_report)
-                    #     producer.flush()
-                    #     db.bulgaria_static.insert_one(new_data)
-                    # else:
 
                     producer.produce(topic_static, value=message.encode('utf-8'), callback=delivery_report)
                     producer.flush()
