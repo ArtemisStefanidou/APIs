@@ -506,7 +506,7 @@ def create_square(lat1, lon1, distance_km):
     lon1 = math.radians(lon1)
 
     bearing_list_lat = [0, 180]
-    bearing_list_lon = [90, 270] #τα διαφορετικα
+    bearing_list_lon = [90, 270]
 
     # Convert bearing from degrees to radians
     bearing_90 = math.radians(bearing_list_lon[0])
