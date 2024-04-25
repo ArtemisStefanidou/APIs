@@ -22,16 +22,6 @@ formatter = logging.Formatter('%(name)s-%(levelname)s-%(message)s')
 console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
-
-# def create_square(latitude, longitude, radius):
-  
-#     radius_in_degrees = radius / 111.00
-#     min_latitude = latitude - radius_in_degrees
-#     max_latitude = latitude + radius_in_degrees
-#     min_longitude = longitude - radius_in_degrees
-#     max_longitude = longitude + radius_in_degrees
-
-#     return min_latitude, min_longitude, max_latitude, max_longitude
 def init_WaveData(collection):
 
   WaveData = [
@@ -162,7 +152,7 @@ def create_square(lat1, lon1, distance_km):
     lon1 = math.radians(lon1)
 
     bearing_list_lat = [0, 180]
-    bearing_list_lon = [90, 270] #τα διαφορετικα
+    bearing_list_lon = [90, 270]
 
     # Convert bearing from degrees to radians
     bearing_90 = math.radians(bearing_list_lon[0])
