@@ -5,14 +5,9 @@ from pymongo import MongoClient
 from pymongo import ReturnDocument
 from bson.json_util import dumps
 import json
-# from dotenv import load_dotenv
-
-# load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-# mongo_db_url = os.environ.get("MONGO_DB_CONN_STRING")
-# print(mongo_db_url)
 
 client = MongoClient("mongodb://mongodb:27017")
 db = client["kafka_db"]
