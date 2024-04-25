@@ -34,7 +34,7 @@ mycol_wave = db["waveData"]
 mycol_wind = db["windData"]
 mycol_living = db['living_lab']
 mycol_dynamic = db["ais_cyprus_dynamic"]
-mycol_static = db["ais_cyprus_static"]
+mycol_static = db["ais_static"]
 mycol_weather = db["weatherData"]
 collection = db['bulgaria']
 
@@ -316,8 +316,8 @@ def get_ais_cyprus_dynamic():
         return jsonify({'error': str(e)})
 
 
-@app.route("/ais_cyprus_static", methods=["GET"])
-def get_ais_cyprus_static():
+@app.route("/ais_static", methods=["GET"])
+def get_ais_static():
     try:
         date_min = datetime.strptime(request.args.get("dateMin"), "%Y-%m-%dT%H:%M:%S")
         date_max = datetime.strptime(request.args.get("dateMax"), "%Y-%m-%dT%H:%M:%S")
