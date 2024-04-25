@@ -65,6 +65,14 @@ services:
     volumes:
       - ./CoperDBAPI/.cdsapirc:/root/.cdsapirc
 
+  ais_decoder:
+    build:
+      context: ./CoperDBAPI/aisDecoder
+    ports:
+      - "9094:9094/udp"
+    depends_on:
+      - mongodb
+
   api:
       build:
         context: ./CoperDBAPI/API
@@ -73,22 +81,16 @@ services:
       depends_on:
         - producerwave
         - producerwind
+        - ais_decoder
 
-  api_vessel:
+  dss:
     build:
-      context: ./VesselAPI
+      context: ./DSS
     ports:
       - 5001:5000
     depends_on:
       - mongodb
 
-  ais_decoder:
-    build:
-      context: ./CoperDBAPI/aisDecoder
-    ports:
-      - "9094:9094/udp"
-    depends_on:
-      - mongodb
 
 volumes:
   data_volumes:
